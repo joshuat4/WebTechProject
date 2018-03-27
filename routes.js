@@ -12,3 +12,5 @@ router.get('/', function(req,res){
 router.get('/about', function(req,res){
     res.send("about this ..");
 })
+
+module.exports = router;
