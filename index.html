@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -15,18 +15,25 @@
             text-align: center;
             color: white;
             background:transparent;
-            font-family: "Century Gothic";
-            font-size: 24px;
+            font-family: "Futura";
+            font-size: 10vmin;
             font-style: italic;
             font-variant: normal;
             font-weight: 900;
-            line-height: 26.4px
+            /*line-height: 26.4px*/
+        }
+
+        h2 {
+            font-family: "Helvetica";
+            font-weight: bold;
+            font-size: 3vmin;
+            color: black;
         }
 
         h3 {
             font-family: "Helvetica";
             font-weight: bold;
-            font-size: 2.5em;
+            font-size: 3vmin;
             color: black;
         }
 
@@ -38,14 +45,14 @@
             text-align: center;
             color: white;
             background:transparent;
-            font-size: 4em;
-            font-family: "Century Gothic";
+            font-size: 5vmin;
+            font-family: "Futura";
         }
 
         .background {
             background: url(https://images.unsplash.com/reserve/wPCyys8TPCHY3GXm2N2D_ssp_inthewoods_1.jpg?ixlib=rb-0.3.5&s=f0d0a07d340e81fbb216807964151d02&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb) no-repeat center center fixed;
-            height:100%;
             width:100%;
+            height:100%;
             text-align:center;
             background-size:cover;
             -webkit-filter: blur(8px);
@@ -66,7 +73,7 @@
             padding-top: 40vh; /* Location of the box */
             left: 0;
             top: 0;
-            position:cener;
+            position:center;
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
@@ -87,7 +94,7 @@
         .close {
             color: #aaaaaa;
             float: right;
-            font-size: 28px;
+            font-size: 2.5vw;
             font-weight: bold;
         }
 
@@ -98,11 +105,14 @@
             cursor: pointer;
         }
         .input-newsletter{
-            font-size: 1rem;
+            display:block;
+            position: relative;
+            font-size: 1vh;
             padding: 1rem;
             margin-left: auto;
             margin-right: auto;
-            width:  40%;
+            width:  40vw;
+            height: 10vh;
         }
 
         body {
@@ -113,10 +123,10 @@
 
         .container {
             position: relative;
-            margin-top: 10%;
-            margin-left: auto;
-            margin-right: auto;
+            margin:auto;
             width: 70%;
+            height: 80%;
+
         }
 
         .btn {
@@ -124,16 +134,19 @@
             background-color: #4CAF50;
             border: none;
             color: white;
-            padding: 1px 3px;
+            padding: 1rem;
+            margin:auto;
+            margin-left: auto;
+            margin-right: auto;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 30px;
+            font-size: 4vmin;
             left: 50%;
             margin-left: -83px;
             cursor: pointer;
-            width: 165px;
-            height: 60px;
+            width: 20vmin;
+            height: 10vmin;
 
         }
 
@@ -145,14 +158,14 @@
 <div class="container">
     <div class="jumbotron" style="background:transparent">
         <h1 style="color:white">ReeTech</h1>
-        <br>
+        <br />
         <h2 style="color:white; text-align:center">Making e-waste recycling better and easier for everyone!</h2>
-        <br>
+        <br />
         <h3 style="color:white; text-align:center">"COMING SOON"</h3>
         <br>
         <h4 id="timer" style="color:white; text-align:center"></h4>
-        <br>
-        <br>
+        <!--<br>-->
+        <!--<br>-->
         <div class = "input-newsletter">
             <input type="email" class="form-control" placeholder="Enter email..." aria-label="Enter email..." aria-describedby="basic-addon">
         </div>
@@ -162,7 +175,7 @@
                 <p>You have successfully been subscribed. Check your email for latest updates!</p>
             </div>
         </div>
-        <button type="button" id = "mybtn" class="btn btn-lg">Subscribe</button>
+        <button style= "text-align:center" type="button" id = "mybtn" class="btn btn-lg">Subscribe</button>
     </div>
 
 </div>
