@@ -115,7 +115,7 @@
             background-color: rgba(0, 0 ,0 ,0);
             border: 2px solid #ffffff;
             color: white;
-            padding: 1px 3px;
+            padding: 1vh 1vw;
             display: inline-block;
             font-size: 4vmin;
             text-align: center;
@@ -226,14 +226,9 @@
 <div class="container">
     <div class="jumbotron" style="background:transparent">
         <h1 style="color:white">ReeTech</h1>
-        <!--<br />-->
         <h2 style="color:white; text-align:center">Making e-waste recycling better and easier for everyone!</h2>
-        <!--<br />-->
         <h3 style="color:white; text-align:center">"COMING SOON"</h3>
-        <!--<br>-->
         <h4 id="timer" style="color:white; text-align:center"></h4>
-        <!--<br>-->
-        <!--<br>-->
         <div style="text-align:center;">
             <button onclick="on()" style= "text-align:center" type="button"  class="btn btn-lg">Subscribe</button>
 
@@ -286,7 +281,8 @@
     var span = document.getElementsByClassName("close")[0];
     var emailInput = document.getElementById("emailInput");
     var popupText = document.getElementById("popupText");
-
+    var form = document.getElementById("subscribe-form");
+    var overlay = document.getElementById("overlay");
     // When the user clicks the button, open the popup
     btn.onclick = function() {
         popupText.innerHTML = "You have successfully been subscribed. Check your email for latest updates!";
@@ -298,12 +294,6 @@
     // When the user clicks on <span> (x), close the popup
     span.onclick = function() {
         popup.style.display = "none";
-    }
-    // When the user clicks anywhere outside of the popup, close it.
-    window.onclick = function(event) {
-        if (event.target == popup) {
-            popup.style.display = "none";
-        }
     }
 </script>
 <script>
