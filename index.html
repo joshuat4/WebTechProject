@@ -69,32 +69,7 @@
             left:0;
             top: 0;
         }
-
-
-        .popup {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding-top: 40vh;
-            left: 0;
-            top: 0;
-            position:center;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.8);
-            line-height: 5vh;
-        }
-
-        .popup-text {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 1em;
-            border: 1px solid #888;
-            width: 80%;
-            line-height:5vh;
-        }
+        ß
 
         /* The Close Button */
         .close {
@@ -137,22 +112,82 @@
 
         .btn {
             position: relative;
-            background-color: #4CAF50;
-            border: none;
+            background-color: rgba(0, 0 ,0 ,0);
+            border: 2px solid #ffffff;
             color: white;
-            /*padding: 1rem;*/
-            /*margin:auto;*/
-            /*margin-left: auto;*/
-            /*margin-right: auto;*/
-            /*text-align: center;*/
-            /*text-decoration: none;*/
+            padding: 1px 3px;
             display: inline-block;
             font-size: 4vmin;
             text-align: center;
             cursor: pointer;
-            /*width: 10;*/
-            /*height: 10vmin;*/
+            transition: all 0.8s ease 0s;
 
+
+        }
+        .btn:hover {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2;
+
+        }
+
+        #subscribe-form{
+            position: fixed;
+            margin-top:10%;
+            top: 30%;
+            left: 50%;
+            width: 40%;
+            min-width: 350px;
+            font-size: 20px;
+            background-color: white;
+            color: grey;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            padding: 20px 20px 20px 20px;
+            border-radius: 20px;
+        }
+
+        .form-control {
+            min-height: 60px;
+        }
+
+        .form-button {
+            height: 60px;
+            width: 150px;
+            border: 2px solid grey;
+            background: none;
+            color: grey;
+            border-radius: 10px;
+        }
+        .button-container {
+            padding-left: 50%;
+        }
+        #button1 {
+            margin-left: -153px;
+        }
+
+        #popup {
+            display: none;
+            font-size: 12px;
+        }
+
+        #menu-close {
+            display: inline;
+            margin-top: -20px;
+            margin-left: 96%;
+            cursor: pointer;
         }
 
 
@@ -160,6 +195,34 @@
 </head>
 <body>
 <div class="background"></div>
+
+<div id="overlay">
+    <div id="subscribe-form"><form>
+        <span onclick="off()" id="menu-close">&times;</span>
+        <h3 style="text-align: center; color:grey">Stay Informed</h3>
+        <div class="form-group">
+            <label >Name</label>
+            <input type="text" class="form-control" id="input1" placeholder="Preferred Contact Name">
+        </div>
+        <div class="form-group">
+            <label >Email</label>
+            <input type="text" class="form-control" id="emailInput" placeholder="Email Address">
+        </div>
+        <div id="popup" class="popup">
+            <div class="popup-text">
+                <span class="close">&times;</span>
+                <p id = "popupText">You have successfully been subscribed. Check your email for latest updates!</p>
+            </div>
+        </div>
+        <div class="button-container">
+            <button onclick="off()" id="button1" type="button" class="form-button">Cancel</button>
+            <button id="button2" type="button" class="form-button">Subscribe</button>
+        </div>
+    </form></div>
+</div>
+
+
+
 <div class="container">
     <div class="jumbotron" style="background:transparent">
         <h1 style="color:white">ReeTech</h1>
@@ -171,17 +234,8 @@
         <h4 id="timer" style="color:white; text-align:center"></h4>
         <!--<br>-->
         <!--<br>-->
-        <div class = "input-newsletter" style="text-align:center;">
-            <input type="email" id= "emailInput" class="form-control" placeholder="Enter email..." aria-label="Enter email..." aria-describedby="basic-addon">
-        </div>
-        <div id="popup" class="popup">
-            <div class="popup-text">
-                <span class="close">&times;</span>
-                <p id = "popupText">You have successfully been subscribed. Check your email for latest updates!</p>
-            </div>
-        </div>
         <div style="text-align:center;">
-            <button style= "text-align:center" type="button" id = "mybtn" class="btn btn-lg">Subscribe</button>
+            <button onclick="on()" style= "text-align:center" type="button"  class="btn btn-lg">Subscribe</button>
 
         </div>
     </div>
@@ -228,7 +282,7 @@
 
     //get the required elements from the html file.
     var popup = document.getElementById("popup");
-    var btn = document.getElementById("mybtn");
+    var btn = document.getElementById("button2");
     var span = document.getElementsByClassName("close")[0];
     var emailInput = document.getElementById("emailInput");
     var popupText = document.getElementById("popupText");
@@ -250,6 +304,15 @@
         if (event.target == popup) {
             popup.style.display = "none";
         }
+    }
+</script>
+<script>
+    function on() {
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function off() {
+        document.getElementById("overlay").style.display = "none";
     }
 </script>
 </body>
