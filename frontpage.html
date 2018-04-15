@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    ul.topnav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #FFF;
+    }
+
+    ul.topnav li {float: left;}
+
+    ul.topnav li a {
+        display: block;
+        color: Black;
+        text-align: center;
+        padding: 20px;
+        text-decoration: none;
+    }
+
+    ul.topnav li a:hover:not(.active) {background-color: #333; color: #FFF}
+
+    ul.topnav li a.active {background-color: #333; color: #FFF}
+
+    ul.topnav li.right {float: right;}
+
+    @media screen and (max-width: 600px){
+        ul.topnav li.right,
+        ul.topnav li {float: none;}
+    }
+
+    .item0 { grid-area: main; }
+    .item1 { grid-area: item1; }
+    .item2 { grid-area: item2; }
+    .item3 { grid-area: item3; }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+                'main main main'
+                'item1 item2 item3';
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 2fr 1fr;
+        background-color: #2196F3;
+        height: 100vh;
+    }
+    .grid-container > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 20px 0;
+        font-size: 30px;
+    }
+
+
+    body {
+        margin: 0 0 0 0;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>ReE Tech</title>
+</head>
+<body>
+<ul class="topnav">
+    <li><a class="active" href="#home">Home</a></li>
+    <li><a href="#where">Where to Recycle</a></li>
+    <li><a href="#why">Why Recycle</a></li>
+    <li><a href="#pickup">Pickup Service</a></li>
+    <li class="right"><a href="#about">Login</a></li>
+</ul>
+<div class="grid-container">
+    <div class="item0"><h1>ReE Tech</h1></div>
+    <div class="item1">Where to Recycle</div>
+    <div class="item2">Why Recycle E-waste</div>
+    <div class="item3">E-waste Pickup Service</div>
+</div>
+
+</body>
+</html>
