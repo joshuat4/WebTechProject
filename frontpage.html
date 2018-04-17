@@ -17,6 +17,7 @@
         text-align: center;
         padding: 20px;
         text-decoration: none;
+        transition: 1s;
     }
 
     ul.topnav li a:hover:not(.active) {background-color: #333; color: #FFF}
@@ -41,20 +42,43 @@
                 'main main main'
                 'item1 item2 item3';
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 2fr 1fr;
+        grid-template-rows: 4fr 3fr;
         background-color: #2196F3;
         height: 100vh;
     }
-    .grid-container > div {
+
+    @media screen and (max-width: 600px) {
+        .grid-container {
+            grid-template-columns: 1fr;
+            grid-template-rows: 2fr 1fr 1fr 1fr;
+            grid-template-areas:
+                    "main"
+                    "item1"
+                    "item2"
+                    "item3";
+        }
+    }
+    .grid-container div {
         background-color: rgba(255, 255, 255, 0.8);
         text-align: center;
         padding: 20px 0;
         font-size: 30px;
     }
 
+    .grid-container div:nth-child(n+2) {
+        -webkit-transition-duration: 1s; /* Safari */
+        transition-duration: 1s;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .grid-container div:nth-child(n+2):hover {
+        box-shadow: 8px 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 
     body {
-        margin: 0 0 0 0;
+        margin: 0;
     }
 </style>
 <head>
@@ -63,7 +87,7 @@
 </head>
 <body>
 <ul class="topnav">
-    <li><a class="active" href="#home">Home</a></li>
+    <li><a class="active" href="#home">ReE Tech</a></li>
     <li><a href="#where">Where to Recycle</a></li>
     <li><a href="#why">Why Recycle</a></li>
     <li><a href="#pickup">Pickup Service</a></li>
