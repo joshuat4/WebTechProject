@@ -1,10 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    .navigator { grid-area: navigator; }
+    .map { grid-area: map; }
+
+    .map-interface {
+        display: grid;
+        grid-template-areas:
+                'navigator map';
+        grid-template-columns: 408px 1fr;
+        background-color: #FFFFFF;
+        height: 100vh;
+    }
+
+
+    .input-field { grid-area: input-field; }
+    .search-button { grid-area: search-button; }
+
+    .search-bar {
+        display: grid;
+        grid-template-areas:
+                'input-field search-button';
+        grid-template-columns: 300px 50px;
+        background-color: #FFFFFF;
+        height: 40px;
+        margin: 10px 20px 0 20px;
+        border-radius: 2px;
+        box-shadow: 1px 1px 2px 1px grey;
+        padding-left: 15px;
+    }
+
+    #search {
+        border:none;
+        height: 100%;
+        padding: 0;
+        font-size: 18px;
+        outline: 0;
+    }
+
+    .search-button {
+        text-align: center;
+        height: 100%;
+        width: 100%;
+
+    }
+
+    i {
+        margin-top: 8px;
+        color: grey;
+    }
+
+    body {
+        margin: 0;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Maps</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-
+<div class="map-interface">
+    <!--the section where you can search and filter-->
+    <div class="navigator">
+        Find a Recycling Station
+        <br><br>
+        My address
+        <br>
+        <!--search bar-->
+        <div class="search-bar">
+        <div class="input-field">
+            <input id="search" placeholder="Find your suburb or address..">
+        </div>
+        <div class="search-button"><i class="material-icons">search</i></div>
+        </div>
+        <br>
+        Waste type:
+        <input type="checkbox" name="wastetype" value="All">All
+        <input type="checkbox" name="vehicle" value="Custom">Custom
+    </div>
+    <!--the map-->
+    <div class="map" id="map"></div>
+</div>
 </body>
+<script>
+    function initMap() {
+        var melbourne = {lat: -37.814, lng: 144.963};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: melbourne
+        });
+        var marker = new google.maps.Marker({
+            position: melbourne,
+            map: map
+        });
+    }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&callback=initMap"
+        type="text/javascript">
+</script>
 </html>
