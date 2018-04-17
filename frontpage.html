@@ -43,7 +43,7 @@
                 'item1 item2 item3';
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 4fr 3fr;
-        background-color: #2196F3;
+        background-color: #FFFFFF;
         height: 100vh;
     }
 
@@ -59,10 +59,19 @@
         }
     }
     .grid-container div {
-        background-color: rgba(255, 255, 255, 0.8);
         text-align: center;
         padding: 20px 0;
         font-size: 30px;
+    }
+
+    .grid-container .item0 {
+        background-color: rgba(10, 10, 10, 0.5);
+        background-image: url("http://panglaovacations.com/wp-content/uploads/2017/09/Hanging-Bridge-in-Sevilla.jpg");
+        background-size:cover;
+        background-blend-mode: color;
+        background-position: center;
+        color: #FFFFFF;
+        padding-top: 20%;
     }
 
     .grid-container div:nth-child(n+2) {
@@ -74,6 +83,7 @@
     }
 
     .grid-container div:nth-child(n+2):hover {
+        background-color: #dddddd;
         box-shadow: 8px 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
@@ -94,7 +104,7 @@
     <li class="right"><a href="#about">Login</a></li>
 </ul>
 <div class="grid-container">
-    <div class="item0"><h1>ReE Tech</h1></div>
+    <div class="item0"><h1>ReE Tech</h1>Making recycling easier for everyone!</div>
     <div class="item1">Where to Recycle</div>
     <div class="item2">Why Recycle E-waste</div>
     <div class="item3">E-waste Pickup Service</div>
