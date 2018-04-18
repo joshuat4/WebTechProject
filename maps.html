@@ -69,6 +69,7 @@
         padding: 0;
         font-size: 18px;
         outline: 0;
+        width:100%
     }
 
     .search-button {
@@ -80,7 +81,7 @@
     }
 
     .expand {
-        margin-left: 160px;
+        margin-left: 140px;
         display: inline-block;
         font-size: 30px;
     }
@@ -118,12 +119,17 @@
                 'read-more result-directions';
         grid-template-columns: 300px 1fr;
         font-family: 'Source Sans Pro';
+        border-top: 1px solid grey;
     }
 
     .results {
         max-height: 500px;
         overflow-y: auto;
 
+    }
+
+    .shift-left {
+        padding-left: 20px;
     }
 
     i {
@@ -151,10 +157,10 @@
 <div class="map-interface">
     <!--the section where you can search and filter-->
     <div class="navigator">
-        Find a Recycling Station
+        <div class="shift-left">Find a Recycling Station
         <br><br>
         My address
-        <br>
+        </div>
         <!--search bar-->
         <div class="search-bar">
         <div class="input-field">
@@ -162,11 +168,11 @@
         </div>
         <div class="search-button" id="search-button"><i class="material-icons">search</i></div>
         </div>
-        <br>
+        <div class="shift-left">
         Waste type:
         <input type="checkbox" name="wastetype" value="All">All
         <input type="checkbox" name="vehicle" value="Custom">Custom
-        <div class="expand"><i id="expand_more" class="material-icons">expand_more</i></div>
+        <div class="expand"><i id="expand_more" class="material-icons">expand_more</i></div></div>
         <div class="menu">
             <ul id="waste-menu">
                 <li><input type="checkbox"> checkbox 1</li>
@@ -243,10 +249,11 @@
     };
 
 
-
-
-
-
+</script>
+<script>
+    // document.getElementById("search-button").addEventListener("onchange", function(){
+    //
+    // });
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&callback=initMap"
         type="text/javascript">
