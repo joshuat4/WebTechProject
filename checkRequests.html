@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<style>
+    ul.topnav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #FFF;
+        font-family: 'Source Sans Pro';
+        font-size: 16px;
+    }
+
+    ul.topnav li {float: left;}
+
+    ul.topnav li a {
+        display: block;
+        color: Black;
+        text-align: center;
+        padding: 20px;
+        text-decoration: none;
+        transition: 1s;
+    }
+
+    ul.topnav li a:hover:not(.active) {background-color: #333; color: #FFF}
+
+    ul.topnav li a.active {background-color: #333; color: #FFF}
+
+    ul.topnav li.right {float: right;}
+
+    @media screen and (max-width: 600px){
+        ul.topnav li.right,
+        ul.topnav li {float: none;}
+    }
+    .navigator { grid-area: navigator; }
+    .map { grid-area: map; }
+
+    .map-interface {
+        display: grid;
+        grid-template-areas:
+                'navigator map';
+        grid-template-columns: 408px 1fr;
+        background-color: #FFFFFF;
+        height: 100vh;
+        font-family: 'Source Sans Pro';
+    }
+
+
+    .input-field { grid-area: input-field; }
+    .search-button { grid-area: search-button; }
+
+    .search-bar {
+        display: grid;
+        grid-template-areas:
+                'input-field search-button';
+        grid-template-columns: 300px 50px;
+        background-color: #FFFFFF;
+        height: 40px;
+        margin: 10px 20px 0 20px;
+        border-radius: 2px;
+        box-shadow: 1px 1px 2px 1px grey;
+        padding-left: 15px;
+    }
+
+    #search {
+        border:none;
+        height: 100%;
+        padding: 0;
+        font-size: 18px;
+        outline: 0;
+    }
+
+    .search-button {
+        text-align: center;
+        height: 100%;
+        width: 100%;
+
+    }
+
+    i {
+        margin-top: 8px;
+        color: grey;
+    }
+
+    body {
+        margin: 0;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Check Requests</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+<ul class="topnav">
+    <li><a class="active" href="frontpage.html">ReeTech</a></li>
+    <li><a href="maps.html">Where to Recycle</a></li>
+    <li><a href="impactpage.html">Why Recycle</a></li>
+    <li><a href="RequestForm.html">Pickup Service</a></li>
+    <li><a href="collectionpartner.html">Collection Partners</a></li>
+</ul>
+<div class="map-interface">
+    <!--the section where you can search and filter-->
+    <div class="navigator">
+        Find the number of requests in your area
+        <br><br>
+        Search an Area
+        <br>
+        <!--search bar-->
+        <div class="search-bar">
+            <div class="input-field">
+                <input id="search" placeholder="Enter an address">
+            </div>
+            <div class="search-button"><i class="material-icons">search</i></div>
+        </div>
+        <br>
+        Waste type:
+        <input type="checkbox" name="wastetype" value="All">All
+        <input type="checkbox" name="vehicle" value="Custom">Custom
+    </div>
+    <!--the map-->
+    <div class="map" id="map"></div>
+</div>
+</body>
+<script>
+    function initMap() {
+        var melbourne = {lat: -37.814, lng: 144.963};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: melbourne
+        });
+        var marker = new google.maps.Marker({
+            position: melbourne,
+            map: map
+        });
+    }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&callback=initMap"
+        type="text/javascript">
+</script>
+</html>
