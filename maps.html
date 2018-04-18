@@ -88,6 +88,22 @@
         font-size: 30px;
     }
 
+    .menu {
+        height: 160px;
+        overflow-y: auto;
+    }
+
+    #waste-menu {
+        list-style-type: none;
+        padding-left:80px;
+    }
+
+    #revise-search-button-container {
+        text-align: right;
+        padding: 10px 10px 0 0;
+    }
+
+
     i {
         margin-top: 8px;
         color: grey;
@@ -129,7 +145,27 @@
         <input type="checkbox" name="wastetype" value="All">All
         <input type="checkbox" name="vehicle" value="Custom">Custom
         <div class="expand"><i id="expand_more" class="material-icons">expand_more</i></div>
-        <div class="menu"></div>
+        <div class="menu">
+            <ul id="waste-menu">
+                <li><input type="checkbox"> checkbox 1</li>
+                <li><input type="checkbox"> checkbox 2</li>
+                <li><input type="checkbox"> checkbox 3</li>
+                <li><input type="checkbox"> checkbox 4</li>
+                <li><input type="checkbox"> checkbox 1</li>
+                <li><input type="checkbox"> checkbox 2</li>
+                <li><input type="checkbox"> checkbox 3</li>
+                <li><input type="checkbox"> checkbox 4</li>
+                <li><input type="checkbox"> checkbox 1</li>
+                <li><input type="checkbox"> checkbox 2</li>
+                <li><input type="checkbox"> checkbox 3</li>
+                <li><input type="checkbox"> checkbox 4</li>
+                <li><input type="checkbox"> checkbox 1</li>
+                <li><input type="checkbox"> checkbox 2</li>
+                <li><input type="checkbox"> checkbox 3</li>
+                <li><input type="checkbox"> checkbox 4</li>
+            </ul>
+        </div>
+        <div id="revise-search-button-container"><button id="revise-search-button">Revise Search</button></div>
     </div>
     <!--the map-->
     <div class="map" id="map"></div>
