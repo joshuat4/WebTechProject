@@ -135,10 +135,23 @@
 </ul>
 <div class="grid-container">
     <div class="item0"><h1>ReeTech</h1>Making recycling easier for everyone!</div>
-    <div class="item1">Where to Recycle</div>
-    <div class="item2">Why Recycle E-waste</div>
-    <div class="item3">E-waste Pickup Service</div>
+    <div class="item1" id="where">Where to Recycle</div>
+    <div class="item2" id="why">Why Recycle E-waste</div>
+    <div class="item3" id="pickup">E-waste Pickup Service</div>
 </div>
 
 </body>
+<script>
+    document.getElementById("where").addEventListener("click", function(){
+        window.location.replace("maps.html");
+    });
+
+    document.getElementById("why").addEventListener("click", function(){
+        window.location.replace("impactpage.html");
+    });
+
+    document.getElementById("pickup").addEventListener("click", function(){
+        window.location.replace("RequestForm.html");
+    });
+</script>
 </html>

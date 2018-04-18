@@ -78,6 +78,16 @@
 
     }
 
+    .expand {
+        margin-left: 160px;
+        display: inline-block;
+        font-size: 30px;
+    }
+
+    #expand_more {
+        font-size: 30px;
+    }
+
     i {
         margin-top: 8px;
         color: grey;
@@ -118,6 +128,8 @@
         Waste type:
         <input type="checkbox" name="wastetype" value="All">All
         <input type="checkbox" name="vehicle" value="Custom">Custom
+        <div class="expand"><i id="expand_more" class="material-icons">expand_more</i></div>
+        <div class="menu"></div>
     </div>
     <!--the map-->
     <div class="map" id="map"></div>
