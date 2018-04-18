@@ -227,26 +227,28 @@
             position: melbourne,
             map: map
         });
-    }
+
+        document.getElementById("search-button").addEventListener("click", function(){
+            document.getElementById("results").innerHTML = mystr;
+            for (var i = 0; i < 300; i++) {
+                var coords = myArr["DATA"];
+                var latLng = new google.maps.LatLng(coords["GEO_LAT"][i],coords["GEO_LON"][i]);
+                console.log(coords["GEO_LAT"][i],coords["GEO_LON"][i]);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map
+                });
+            }
+        });
+    };
 
 
 
-    document.getElementById("search-button").addEventListener("click", function(){
-        document.getElementById("results").innerHTML = mystr;
-        for (var i = 0; i < 300; i++) {
-            var coords = myArr["DATA"];
-            var latLng = new google.maps.LatLng(coords["GEO_LAT"][i],coords["GEO_LON"][i]);
-            var marker = new google.maps.Marker({
-                position: latLng,
-                map: map
-            });
-        }
-    });
+
 
 
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&callback=initMap"
         type="text/javascript">
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&libraries=places"></script>
 </html>
