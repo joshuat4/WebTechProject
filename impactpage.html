@@ -36,10 +36,11 @@
 
     #banner {
         width: 100vw;
-        height:25vh;
+        height:30vh;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        padding-bottom: 10vh;
     }
     div.bannerText{
         color:white;
@@ -73,11 +74,219 @@
 
     }
 
+    /*card css below*/
+    .card {
+        float: left;
+        width: 30%;
+        padding-top: 10vh;
+    }
+    .card .wrapper {
+        background-color: #fff;
+        min-height: 540px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
+    }
+    .card .wrapper:hover .data {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    .card .data {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        -webkit-transform: translateY(calc(70px + 1em));
+        transform: translateY(calc(70px + 1em));
+        -webkit-transition: -webkit-transform 0.3s;
+        transition: -webkit-transform 0.3s;
+        transition: transform 0.3s;
+        transition: transform 0.3s, -webkit-transform 0.3s;
+    }
+    .card .data .content {
+        padding: 1em;
+        position: relative;
+        z-index: 1;
+    }
+    .card .author {
+        font-size: 100%;
+        font-family: "Source Sans Pro";
+    }
+    .card .title {
+        margin-top: 10px;
+    }
+    .card .text {
+        height: 70px;
+        margin: 0;
+    }
+    .card input[type='checkbox'] {
+        display: none;
+    }
+    .card input[type='checkbox']:checked + .menu-content {
+        -webkit-transform: translateY(-60px);
+        transform: translateY(-60px);
+    }
+    .example-2 .wrapper {
+        background: url(https://ic.pics.livejournal.com/hoteladvisor/40992692/428069/428069_original.jpg) center/cover no-repeat;
+    }
+    .example-2 .wrapper:hover .menu-content span {
+        -webkit-transform: translate(-50%, -10px);
+        transform: translate(-50%, -10px);
+        opacity: 1;
+    }
+    .example-2 .data {
+        font-family: "Source Sans Pro";
+        color: #fff;
+        -webkit-transform: translateY(calc(70px + 4em));
+        transform: translateY(calc(70px + 4em));
+        font-size: 130%;
+    }
+    .example-2 .title a {
+        color: #fff;
+        font-family: "Source Sans Pro";
+        font-size: 150%;
+    }
+    .example-2 .button {
+        font-family: "Source Sans Pro";
+        display: block;
+        width: 100px;
+        margin: 2em auto 1em;
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+        line-height: 1;
+        position: relative;
+        font-weight: 700;
+    }
+    .example-2 .button::after {
+        content: '\2192';
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -webkit-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    .example-2 .button:hover::after {
+        -webkit-transform: translate(5px, -50%);
+        transform: translate(5px, -50%);
+        opacity: 1;
+    }
+    /*card 2*/
+
+    #card2{
+        padding: 4vw;
+        padding-top: 10vh;
+    }
+
+    .example-3 .wrapper {
+        background: url(https://img00.deviantart.net/0eb6/i/2008/062/6/3/dark_earth_by_tehboriz.jpg) center/cover no-repeat;
+    }
+    .example-3 .wrapper:hover .menu-content span {
+        -webkit-transform: translate(-50%, -10px);
+        transform: translate(-50%, -10px);
+        opacity: 1;
+    }
+    .example-3 .data {
+        font-family: "Source Sans Pro";
+        color: #fff;
+        -webkit-transform: translateY(calc(70px + 4em));
+        transform: translateY(calc(70px + 4em));
+        font-size: 130%;
+    }
+    .example-3 .title a {
+        color: #fff;
+        font-family: "Source Sans Pro";
+        font-size: 150%;
+    }
+    .example-3 .button {
+        font-family: "Source Sans Pro";
+        display: block;
+        width: 100px;
+        margin: 2em auto 1em;
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+        line-height: 1;
+        position: relative;
+        font-weight: 700;
+    }
+    .example-3 .button::after {
+        content: '\2192';
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -webkit-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    .example-3 .button:hover::after {
+        -webkit-transform: translate(5px, -50%);
+        transform: translate(5px, -50%);
+        opacity: 1;
+    }
+
+    /*card 3*/
+    #card3{
+        padding-top: 10vh;
+    }
+
+    .example-4 .wrapper {
+        background: url(https://img00.deviantart.net/6264/i/2010/175/b/1/a_helping_hand_in_the_dark__by_ptip06.jpg) center/cover no-repeat;
+    }
+    .example-4 .wrapper:hover .menu-content span {
+        -webkit-transform: translate(-50%, -10px);
+        transform: translate(-50%, -10px);
+        opacity: 1;
+    }
+    .example-4 .data {
+        font-family: "Source Sans Pro";
+        color: #fff;
+        -webkit-transform: translateY(calc(70px + 4em));
+        transform: translateY(calc(70px + 4em));
+        font-size: 130%;
+    }
+    .example-4 .title a {
+        color: #fff;
+        font-family: "Source Sans Pro";
+        font-size: 150%;
+    }
+    .example-4 .button {
+        font-family: "Source Sans Pro";
+        display: block;
+        width: 100px;
+        margin: 2em auto 1em;
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+        line-height: 1;
+        position: relative;
+        font-weight: 700;
+    }
+    .example-4 .button::after {
+        content: '\2192';
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -webkit-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    .example-4 .button:hover::after {
+        -webkit-transform: translate(5px, -50%);
+        transform: translate(5px, -50%);
+        opacity: 1;
+    }
 
 </style>
 <head>
     <meta charset="UTF-8">
-    <title>All you need to know about e-waste</title>
+    <title>Impact Page </title>
 </head>
 <ul class="topnav">
     <li><a class="active" href="frontpage.html">ReeTech</a></li>
@@ -87,81 +296,50 @@
     <li><a href="collectionpartner.html">Collection Partners</a></li>
 </ul>
 <section id="banner"  style="padding: 80px 0px;
-background-image: url('https://image.ibb.co/jCMq2S/banner.jpg'); background-position: 50% -80px;">
+background-image: url('http://www.tokkoro.com/picsup/2839015-nature-mist-landscape-desert-mountain-lost-car-dune-dark-night-clouds___landscape-nature-wallpapers.jpg'); background-position: 50% -300px;">
 <div class = bannerText>
     <h1>E-Waste</h1>
 </div>
 </section>
-<div class = mainText>
-    <h2>What is e-waste?</h2>
-    <p>E-waste is a popular, informal name for electronic products nearing the end of their "useful life." Computers,
-        televisions, VCRs, stereos, copiers, and fax machines are common electronic products. Many of these products
-        can be reused, refurbished, or recycled.</p>
 
-    <p>The number of e-waste in Australia is predicted to be approximately 700 million items in 2020 if there is no
-        e-waste recycling program. Australia is a country that is left behind when it comes to e-waste legislation. According
-        to the current law, it is the responsibility of consumers to recycle e-waste since the government has no funding
-        to finance the recycling. It led consumers to leave the e-waste not recycled and throw it out on landfills.</p>
-
-    <h2>So What?</h2>
-    <p>According to the Consumer Electronics Association, in 2012 global spending on electronics is expected to
-        surpass US$1 trillion. As use of these electronics increases around the world, the question of how to
-        properly manage them when consumers are finished with them becomes more urgent. Unfortunately, not enough of
-        our electronics are re-used, recycled or refurbished. Too many of them end up directly in landfills or recovered
-        in an unsafe manner. According to the UN Environmental Programme, some <b>20 to 50 million metric tons of e-waste
-            are generated worldwide every year</b>, with mobile phones and televisions contributing 10 million tons per year by
-        2015. According to the Environmental Protection Agency, only <b>12.5% of electronic waste is being recycled worldwide.</b></p>
-    <img src = "https://image.ibb.co/gufWbn/info.png" class = info1></img>
-    <h3>Health and Environmental Impacts</h3>
-    <p>The electronic products we use everyday have an impact on the environment and humans. Electronics need inputs of
-        energy and raw materials including metals, oil and water to make, store and transport them. When a product
-        reaches its end of life more energy is used for its disposal, including for transport to landfill. When e-waste is sent to landfill,
-        poisonous substances can leach from decomposing waste and into the environment. These substances can seep into groundwater,
-        contaminate the soil and enter the food chain. Some of these include toxic contents include lead, mercury, cadmium and arsenic.
-        Then, there is a risk that humans may develop health problems by coming into contact with the toxins. These
-        include respiratory ailments, reproductive, developmental and nervous system problems.</p>
-    <h3>Amount of raw material wasted</h3>
-    <p>E-waste statistics are not only relevant in terms of the environmental impact; there is also an important
-        economic component to the debate. The total value of all raw materials present in e-waste is estimated
-        at approximately 55 Billion Euros in 2016, which is more than the 2016 Gross Domestic Product of most
-        countries in the world. The value of secondary raw materials after waste management is just a fraction
-        of the value of its components or the price of used appliances. Circular economy models need to be
-        adopted to encourage closing the loop of materials through better design of components, recycling,
-        reusing, etc., while mitigating the environmental pollution. Therefore, the circular economy concept
-        offers huge economic and employment opportunities for e-waste management; the presented 55
-        Billion Euros of secondary materials is an underestimate of those economic opportunities. This calls
-        for the development of proper legislation to manage e-waste that's supported by data to show both
-        the environmental and economic benefits the the better management of e-waste.</p>
-    <img src = "https://image.ibb.co/hiHNhS/info2.png" class = info2></img>
-    <h2>What can I do to help?</h2>
-    <p>Although it is unavoidable for electronic equipment to eventually become redundant, you can follow the below tips
-        on minimising the impact your home or office e-waste has on the environment. Most types of e-waste contain many
-        valuable resources that can be recovered and reused. Often much less energy is needed to recover these resources
-        than to produce new materials.</p>
-    <img src = "https://image.ibb.co/ivfEwn/info3.png" class = info3></img>
-    <h4>Rethink</h4>
-    <ul style = "list-style-type: circle">
-        <li>If you decide to buy any new equipment, ask the manufacturer about reuse and recycling options and avoid those that do not.</li>
-        <li>Avoid disposable products. Only buy products that are durable, repairable and have a good warranty.</li>
-        <li>Consider leasing equipment that can be returned to the manufacturer when it is no longer needed.</li>
-        <li>Engage service providers who replace and refill components of leased equipment when they have been used.</li>
-    </ul>
-    <h4>Reduce</h4>
-    <p>Where economically feasible, repair machinery, appliances and equipment in preference to purchasing new equipment.</p>
-    <h4>Reuse</h4>
-    <ul style = "list-style-type: circle">
-        <li>Check around local schools/charities to see if they can use your surplus appliances.</li>
-        <li>There are many companies that will refurbish your old computer equipment for use by those who cannot afford new items.</li>
-        <li>Many ink cartridges can be refilled with ink for reuse using toner refill kits.</li>
-        <li>Alkaline batteries can be recharged.</li>
-    </ul>
-    <h4>Recycle</h4>
-    <ul style = "list-style-type: circle">
-        <li>Take electrical goods and scrap such as copper wiring to electronic recyclers.</li>
-        <li>Cathode ray tubes of televisions and computer screens can be recycled.</li>
-        <li>Most council provide e-waste recycling services or know of local businesses that do. Contact them if you are in doubt on what to do with your e-waste.</li>
-    </ul>
-
+<div class="example-2 card">
+    <div class="wrapper">
+        <div class="data">
+            <div class="content">
+                <span class="author">ReeTech</span>
+                <h1 class="title"><a href="whatEwaste.html" style = "text-decoration:none;">What is E-waste?</a></h1>
+                <p class="text">Find out more about e-waste here!</p>
+                <a href="whatEwaste.html" class="button" style = "text-decoration:none;">Read more</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="example-3 card" id ="card2">
+    <div class="wrapper">
+        <div class="data">
+            <div class="content">
+                <span class="author">ReeTech</span>
+                <h1 class="title"><a href="sowhat.html" style = "text-decoration:none;">So What?</a></h1>
+                <p class="text">Find out what detrimental impacts improper recycling and handling of e-waste have on us and the environment!</p>
+                <a href="sowhat.html" class="button" style = "text-decoration:none;">Read more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="example-4 card" id ="card3">
+    <div class="wrapper">
+        <div class="data">
+            <div class="content">
+                <span class="author">ReeTech</span>
+                <h1 class="title"><a href="howtohelp.html" style = "text-decoration:none;">Help us</a></h1>
+                <p class="text">Information on how you can help and make a difference even in your daily life.</p>
+                <a href="howtohelp.html" class="button" style = "text-decoration:none;">Read more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

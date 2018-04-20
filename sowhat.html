@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<style>
+    ul.topnav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #FFF;
+        font-family: 'Source Sans Pro';
+        font-size: 16px;
+    }
+
+    ul.topnav li {float: left;}
+
+    ul.topnav li a {
+        display: block;
+        color: Black;
+        text-align: center;
+        padding: 20px;
+        text-decoration: none;
+        transition: 1s;
+    }
+
+    ul.topnav li a:hover:not(.active) {background-color: #333; color: #FFF}
+
+    ul.topnav li a.active {background-color: #333; color: #FFF}
+
+    ul.topnav li.right {float: right;}
+
+    @media screen and (max-width: 600px){
+        ul.topnav li.right,
+        ul.topnav li {float: none;}
+    }
+
+    body {
+        background-color: #D3D3D3;
+        font-family: "Roboto", sans-serif;
+    }
+
+    /* The card */
+    .card {
+        position: relative;
+        height: 80vh;
+        width: 80vw;
+        margin: 100px auto;
+        background-color: #FFF;
+        -webkit-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+        max-width: 1300px;
+        min-width:1300px;
+    }
+
+    /* Image on the left side */
+    .thumbnail {
+        background-size: contain;
+        float: left;
+        position: relative;
+        left: 30px;
+        top: -30px;
+        height: 50vh;
+        width: 40vw;
+        -webkit-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+        overflow: hidden;
+    }
+
+    /*object-fit: cover; */
+    /*object-position: center; */
+    img.left {
+        background-size: contain;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 120%;
+        width: 100%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    /* Right side of the card */
+    .right {
+        margin-left: 45vw;
+        margin-right: 20px;
+    }
+
+    h2 {
+        padding-top: 15px;
+        font-size: 2vw;
+        max-font-size: 30px;
+        color: #4B4B4B;
+        font-family: "Source Sans Pro";
+    }
+
+
+    .separator {
+        margin-top: 10px;
+        border: 1px solid #C3C3C3;
+    }
+
+    p {
+        text-align: justify;
+        padding-top: 10px;
+        font-size: calc(8px + 0.5/vw);
+        line-height: 150%;
+        color: #4B4B4B;
+        font-family: "Source Sans Pro"
+    }
+    /* Floating action button */
+    .fab {
+        position: absolute;
+        right: 50px;
+        bottom: -40px;
+        box-sizing: border-box;
+        padding-top: 18px;
+        background-color: #db7613;
+        width: 80px;
+        height: 80px;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 50%;
+        -webkit-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+
+    .fab:hover {
+        box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+    }
+    #banner {
+        width: 100vw;
+        height:25vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    a { color: #ffffff
+    } /* Globally */
+
+    /* Each state */
+
+    a:visited { text-decoration: none; color: #ffffff; }
+    a:hover { text-decoration: none; color: #ffffff; }
+    a:focus { text-decoration: none; color: #ffffff; }
+    a:hover, a:active { text-decoration: none; color: #aab3b4
+    }
+
+
+    #button2{
+        margin-top: 240px;
+    }
+
+    .button::before, .button::after {
+        position: absolute;
+        content: '';
+        -webkit-transition: all .5s;
+        transition: all .5s;
+    }
+
+    .button {
+        padding: 20px 40px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: 20vw;
+        margin-top: 120px;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        vertical-align: middle;
+        font-family: "Source Sans Pro"
+        text-decoration: none;
+        font-size: 0.9rem;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+        background-color: #db7613;
+        width: 8vw;
+        height:3vh;
+    }
+    .button::before {
+        bottom: -15px;
+        height: 15px;
+        width: 100%;
+        left: 8px;
+        -webkit-transform: skewX(45deg);
+        transform: skewX(45deg);
+        background-color: #a75413;
+    }
+    .button::after {
+        right: -15px;
+        height: 100%;
+        width: 15px;
+        bottom: -8px;
+        -webkit-transform: skewY(45deg);
+        transform: skewY(45deg);
+        background-color: #704207;
+    }
+    .button:active {
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .button:active::before {
+        bottom: -5px;
+        height: 5px;
+        left: 3px;
+    }
+    .button:active::after {
+        right: -5px;
+        width: 5px;
+        bottom: -3px;
+    }
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>So What?</title>
+</head>
+<ul class="topnav">
+    <li><a class="active" href="frontpage.html">ReeTech</a></li>
+    <li><a href="maps.html">Where to Recycle</a></li>
+    <li><a href="impactpage.html">Why Recycle</a></li>
+    <li><a href="RequestForm.html">Pickup Service</a></li>
+    <li><a href="collectionpartner.html">Collection Partners</a></li>
+</ul>
+<body>
+<section id="banner"  style="padding: 80px 0px;
+background-image: url('https://image.ibb.co/jCMq2S/banner.jpg'); background-position: 100% -200px;">
+</section>
+<div class="card">
+    <div class="thumbnail"><img class="left" src="https://image.ibb.co/eEQZHS/36ff5ffe97c23630712061da8cc78da3.png"/></div>
+    <div class="right">
+        <h2>So What?</h2>
+        <div class="separator"></div>
+        <p>According to the Consumer Electronics Association, in 2012 global spending on electronics is expected to
+            surpass US$1 trillion. As use of these electronics increases around the world, the question of how to
+            properly manage them when consumers are finished with them becomes more urgent. Unfortunately, not enough of
+            our electronics are re-used, recycled or refurbished. Too many of them end up directly in landfills or recovered
+            in an unsafe manner. According to the UN Environmental Programme, some <b>20 to 50 million metric tons of e-waste
+                are generated worldwide every year</b>, with mobile phones and televisions contributing 10 million tons per year by
+            2015. According to the Environmental Protection Agency, only <b>12.5% of electronic waste is being recycled worldwide.</b></p>
+
+        <p>Click on the buttons below to find out more!</p>
+        <div>
+            <a class="button" href="https://www.youtube.com/watch?v=67Uy-6uQOTQ" style = "text-decoration:  none;">Environmental and Health Impacts</a>
+        </div>
+        <a class="button" id = "button2" href="http://www.popsci.com.au/gadgets/the-world-is-throwing-out-billions-of-dollars-along-with-its-electronic-waste,403164" style = "text-decoration:  none;">Raw materials and money wasted</a>
+    </div>
+    <div class="fab"><a href = "impactpage.html" style="text-decoration: none"><i class="fa fa-arrow-left fa-3x" ></i></a></div>
+</div>
+</body>
+</html>
