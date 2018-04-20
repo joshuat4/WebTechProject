@@ -83,7 +83,7 @@
     }
 
     .expand {
-        margin-left: 250px;
+        margin-left: 220px;
         display: inline-block;
         font-size: 30px;
 
@@ -188,7 +188,7 @@
         </div>
         <br>
         <div class="shift-left" id="filter-bar" onclick="expand()">
-        Filter by Waste
+            <b>Filter by Waste</b>
         <div class="expand"><i id="expand_more" class="material-icons">expand_more</i></div></div>
         <div class="menu">
             <ul id="waste-menu">
@@ -202,7 +202,7 @@
             </ul>
         </div>
         <div id="revise-search-button-container"><button id="revise-search-button" onclick="reset()">Clear Filters</button></div>
-        <div class="shift-left">Recycling spots near me:</div>
+        <div class="shift-left"><b>Recycling spots near me:</b></div>
         <br>
         <div class="results" id="results">
             <!--<div class="result">-->
@@ -224,7 +224,7 @@
     function genstr(num) {
         var mystr = "";
         for (i = num*30; i < (num+1)*30; i++) {
-            mystr += '<div class="result"><div class="result-name">' + myArr["DATA"]["BUSINESSNAME"][i] + '</div>';
+            mystr += '<div class="result"><div class="result-name"><b>' + myArr["DATA"]["BUSINESSNAME"][i] + '</b></div>';
             mystr += '<div class="result-address">' + myArr["DATA"]["ADDRESS"][i] + '</div>';
             mystr += '<div class="result-distance">' + (i+1-num*30).toString() + 'km' + '</div>';
             mystr += '<div class="result-directions"><button>directions</button></div><div class="read-more">read more</div></div>';
