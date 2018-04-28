@@ -65,7 +65,7 @@
         padding-left: 15px;
     }
 
-    #search {
+    #autocomplete {
         border:none;
         height: 100%;
         padding: 0;
@@ -158,6 +158,12 @@
         margin: 0;
     }
 </style>
+<style>
+    .pac-container {
+        width: 368px !important;
+        margin-left: -15px !important;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Maps</title>
@@ -182,7 +188,7 @@
         <!--search bar-->
         <div class="search-bar">
         <div class="input-field">
-            <input id="search" placeholder="Find your suburb or address..">
+            <input id="autocomplete" placeholder="Find your suburb or address..">
         </div>
         <div class="search-button" id="search-button" onclick="refresh(0)"><i class="material-icons">search</i></div>
         </div>
@@ -231,12 +237,13 @@
         };
         console.log(mystr);
         return mystr;
-    };
+    }
 
 
     var map;
 
     function initMap() {
+        //intiates map, default centre of map is center of Melbourne
         var melbourne = {lat: -37.814, lng: 144.963};
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 12,
@@ -247,7 +254,37 @@
             map: map
         });
 
-    };
+        //initiates autocomplete, the function to autocomplete addresses
+        var placeSearch, autocomplete;
+
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+
+
+        // Bias the autocomplete object to the user's geographical location,
+        // as supplied by the browser's 'navigator.geolocation' object.
+        function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var circle = new google.maps.Circle({
+                        center: geolocation,
+                        radius: position.coords.accuracy
+                    });
+                    autocomplete.setBounds(circle.getBounds());
+                });
+            }
+        }
+
+    }
 
     function refresh(num){
         initMap();
@@ -261,13 +298,13 @@
                 map: map
             });
         }
-    };
+    }
 
     function reset(){
         initMap();
         refresh(0);
         $('li input').prop('checked', false);
-    };
+    }
 
 
 </script>
@@ -284,7 +321,8 @@
     };
 
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&callback=initMap"
-        type="text/javascript">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&libraries=places&callback=initMap"
+        async defer>
 </script>
+
 </html>
