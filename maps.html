@@ -2,6 +2,7 @@
 <html lang="en">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 <style>
+    /*Header Styling*/
     ul.topnav {
         list-style-type: none;
         margin: 0;
@@ -33,18 +34,30 @@
         ul.topnav li.right,
         ul.topnav li {float: none;}
     }
-    .navigator { grid-area: navigator; }
-    .map {
-        grid-area: map;
+</style>
+<style>
+    .navigator {
+        grid-area: navigator;
+        display: flex;
+        flex-direction: column;
+        max-height: 100%;
+        min-height: 100%;
     }
+    .map {grid-area: map;}
+    .header {grid-area: header;}
 
     .map-interface {
         display: grid;
         grid-template-areas:
+                'header header'
                 'navigator map';
         grid-template-columns: 408px 1fr;
+        grid-template-rows: 61px 1fr;
         background-color: #FFFFFF;
-        height: 100vh;
+        height: 100%;
+        max-height: 100vh;
+        min-height: 100vh;
+        overflow: hidden;
         font-family: 'Source Sans Pro';
     }
 
@@ -127,10 +140,10 @@
         padding: 10px 0px 10px 20px;
     }
 
-    .results {
-        max-height: 500px;
-        overflow-y: auto;
 
+    .results {
+        flex: 1 1;
+        overflow-y: auto;
     }
 
     #filter-bar {
@@ -154,8 +167,9 @@
         color: grey;
     }
 
-    body {
+    html, body {
         margin: 0;
+        height: 100%;
     }
 </style>
 <style>
@@ -171,16 +185,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<ul class="topnav">
-    <li><a class="active" href="frontpage.html">ReeTech</a></li>
-    <li><a href="maps.html">Where to Recycle</a></li>
-    <li><a href="impactpage.html">Why Recycle</a></li>
-    <li><a href="RequestForm.html">Pickup Service</a></li>
-    <li><a href="collectionpartner.html">Collection Partners</a></li>
-</ul>
 <div class="map-interface">
+    <!--header-->
+    <div class="header">
+    <ul class="topnav">
+        <li><a class="active" href="frontpage.html">ReeTech</a></li>
+        <li><a href="maps.html">Where to Recycle</a></li>
+        <li><a href="impactpage.html">Why Recycle</a></li>
+        <li><a href="RequestForm.html">Pickup Service</a></li>
+        <li><a href="collectionpartner.html">Collection Partners</a></li>
+    </ul>
+    </div>
+
     <!--the section where you can search and filter-->
     <div class="navigator">
+        <div class="search-container">
         <div class="shift-left shift-down"><b>Find a Recycling Station near you</b>
         <br><br>
         My address
@@ -210,6 +229,7 @@
         <div id="revise-search-button-container"><button id="revise-search-button" onclick="reset()">Clear Filters</button></div>
         <div class="shift-left"><b>Recycling spots near me:</b></div>
         <br>
+        </div>
         <div class="results" id="results">
             <!--<div class="result">-->
                 <!--<div class="result-name">Dropoff one</div>-->
@@ -231,10 +251,10 @@
         var mystr = "";
         for (i = num*30; i < (num+1)*30; i++) {
             mystr += '<div class="result"><div class="result-name"><b>' + myArr["DATA"]["BUSINESSNAME"][i] + '</b></div>';
-            mystr += '<div class="result-address">' + myArr["DATA"]["ADDRESS"][i] + '</div>';
+            mystr += '<div class="result-address">' + myArr["DATA"]["ADDRESS"][i] + ', '+ myArr["DATA"]["SUBURB"][i]+ '</div>';
             mystr += '<div class="result-distance">' + (i+1-num*30).toString() + 'km' + '</div>';
-            mystr += '<div class="result-directions"><button>directions</button></div><div class="read-more">read more</div></div>';
-        };
+            mystr += '<div class="result-directions"><button class="directions-button">directions</button></div><div class="read-more">read more</div></div>';
+        }
         console.log(mystr);
         return mystr;
     }
@@ -261,31 +281,63 @@
             /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
             {types: ['geocode']});
 
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
-        autocomplete.addListener('place_changed', fillInAddress);
-
-
         // Bias the autocomplete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
-        function geolocate() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var geolocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    var circle = new google.maps.Circle({
-                        center: geolocation,
-                        radius: position.coords.accuracy
-                    });
-                    autocomplete.setBounds(circle.getBounds());
-                });
-            }
-        }
+        // function geolocate() {
+        //     if (navigator.geolocation) {
+        //         navigator.geolocation.getCurrentPosition(function(position) {
+        //             var geolocation = {
+        //                 lat: position.coords.latitude,
+        //                 lng: position.coords.longitude
+        //             };
+        //             var circle = new google.maps.Circle({
+        //                 center: geolocation,
+        //                 radius: position.coords.accuracy
+        //             });
+        //             autocomplete.setBounds(circle.getBounds());
+        //         });
+        //     }
+        // }
 
+        //initiates route display function on maps
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsDisplay.setMap(map);
+
+        // var onChangeHandler = function() {
+        //     calculateAndDisplayRoute(directionsService, directionsDisplay);
+        // };
+
+        //route display triggers (event delegation)
+        // document.getElementById('start').addEventListener('change', onChangeHandler);
+        // document.getElementById('end').addEventListener('change', onChangeHandler);
+        //
+        document.getElementById('results').onclick = function(event) {
+            if (event.target.className != 'directions-button') return;
+
+            let pane = event.target.closest('.result');
+            // console.log(pane.childNodes[1].textContent);
+            calculateAndDisplayRoute(directionsService, directionsDisplay, pane.childNodes[1].textContent);
+        };
+
+        //plots route from A to B on maps
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, dest) {
+            directionsService.route({
+                origin: document.getElementById('autocomplete').value,
+                destination: dest,
+                //document.getElementById('end').value
+                travelMode: 'DRIVING'
+            }, function(response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
     }
 
+    //dummy function for returning search results in results section as well as marking the spots on the map
     function refresh(num){
         initMap();
         document.getElementById("results").innerHTML = genstr(num);
@@ -299,12 +351,14 @@
             });
         }
     }
-
+    //when you press reset filters
     function reset(){
         initMap();
         refresh(0);
         $('li input').prop('checked', false);
     }
+
+
 
 
 </script>
