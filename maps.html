@@ -11,6 +11,7 @@
         background-color: #FFF;
         font-family: 'Source Sans Pro';
         font-size: 16px;
+        /*box-shadow: 0 3px 3px 3px grey;*/
     }
 
     ul.topnav li {float: left;}
@@ -22,6 +23,7 @@
         padding: 20px;
         text-decoration: none;
         transition: 1s;
+        height: 21px;
     }
 
     ul.topnav li a:hover:not(.active) {background-color: #333; color: #FFF}
@@ -43,8 +45,8 @@
         max-height: 100%;
         min-height: 100%;
     }
-    .map {grid-area: map;}
-    .header {grid-area: header;}
+    .map {grid-area: map; z-index:0;}
+    .header {grid-area: header; box-shadow: 0 1px 4px rgba(41,51,57,.5); z-index: 1;}
 
     .map-interface {
         display: grid;
@@ -61,6 +63,12 @@
         font-family: 'Source Sans Pro';
     }
 
+
+    /*.search-container {
+        background-color:  #3cba54;
+        color: white;
+        margin: 0;
+    }*/
 
     .input-field { grid-area: input-field; }
     .search-button { grid-area: search-button; }
@@ -122,9 +130,27 @@
         padding: 10px 10px 0 0;
     }
 
+    #revise-search-button {
+        background-color: #ffffff;
+        border-radius: 2px;
+        border: 2px solid #333333;
+        color: #333333;
+        padding: 7px 10px 7px 10px;
+        text-align: center;
+        -webkit-transition-duration: 0.5s; /* Safari */
+        transition-duration: 0.5s;
+    }
+
+    #revise-search-button:hover {
+        background-color: #333333; /* Green */
+        color: #ffffff;
+    }
+
+    /*Grid template for search result layout */
     .result-name { grid-area: result-name; }
     .result-address { grid-area: result-address; }
-    .result-distance { grid-area: result-distance; }
+    .result-distance { grid-area: result-distance;
+                       text-align: right; padding-right: 20px;}
     .read-more { grid-area: read-more; }
     .result-directions { grid-area: result-directions; }
 
@@ -162,6 +188,27 @@
     .shift-down {
         margin-top: 20px;
     }
+
+    /*Styling of the button showing text 'Directions' */
+    .directions-button {
+        background-color: #ffffff; /* Green */
+        border-radius: 2px;
+        border: 2px solid #067e18;
+        color: #067e18;
+        padding: 7px 10px 7px 10px;
+        text-align: center;
+        -webkit-transition-duration: 0.5s; /* Safari */
+        transition-duration: 0.5s;
+    }
+
+    .directions-button:hover {
+        border-color: #067e18;
+        background-color: #067e18; /* Green */
+        color: #ffffff;
+        cursor: pointer;
+    }
+    /*General Page Styling*/
+
     i {
         margin-top: 8px;
         color: grey;
@@ -173,6 +220,8 @@
     }
 </style>
 <style>
+    /*Google Autocomplete styling */
+
     .pac-container {
         width: 368px !important;
         margin-left: -15px !important;
@@ -298,6 +347,8 @@
         //         });
         //     }
         // }
+        //
+        // geolocate();
 
         //initiates route display function on maps
         var directionsService = new google.maps.DirectionsService;
@@ -309,9 +360,6 @@
         // };
 
         //route display triggers (event delegation)
-        // document.getElementById('start').addEventListener('change', onChangeHandler);
-        // document.getElementById('end').addEventListener('change', onChangeHandler);
-        //
         document.getElementById('results').onclick = function(event) {
             if (event.target.className != 'directions-button') return;
 
