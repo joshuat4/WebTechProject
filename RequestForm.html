@@ -196,7 +196,7 @@
 <body>
 <!--HTML-->
 <div class="container">
-    <form id="contact" action="checkRequests.html" method="post">
+    <form id="contact" action="" onsubmit="dataFunction()">
         <h3>Request a Pick-up</h3>
         <h4>Send a request for a pickup service in your area</h4>
         <fieldset>
@@ -241,5 +241,35 @@
         </fieldset>
     </form>
 </div>
+<script>
+    function dataFunction(){
+        var form = document.getElementById("contact");
+        var currInput = "False";
+        var i, x=0, j;
+        var temp =["NAME: ", "EMAIL: ", "PHONE: ", "ADDRESS_LINE_1: ", "ADDRESS_LINE_2: ", "SUBURB: ", "POSTCODE: ", "WASTE_TYPE: ", "DESCRIPTION: "];
+        var finalStr= "{";
+        var customerModel =  require('./models/customerData.js');
+        for(i=1; i<form.length-2; i+=2){
+            currInput = form.elements[i].value;
+            temp[x] += currInput;
+            x+=1;
+
+        }
+
+        for(j=0; j<temp.length; j++){
+            finalStr += temp[j];
+            if(j < temp.length-1) {
+                finalStr += ",";
+            }
+        }
+        finalStr += "}";
+        var customer = new customerModel(finalStr);
+        customer.save(function (err) {
+            if (err) return handleError(err);
+            // saved!
+        });
+
+    }
+</script>
 </body>
 </html>
