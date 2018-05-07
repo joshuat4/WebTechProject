@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
-
-var mapDataSchema = new Schema(
+var mapDataSchema = mongoose.Schema(
     {
         ADDITIONALINFO: {type: String, required:false, max: 100},
         ADDRESS: {type: String, required: true},
@@ -28,8 +26,8 @@ var mapDataSchema = new Schema(
         Mobilephones: {type: Boolean, required: true},
         Printer_catridges: {type: Boolean, required: true},
         Televisions: {type: Boolean, required: true}
-    }
+    }, {collection : 'geodata'}
 );
 
 //Export model
-module.exports = mongoose.model('mapDataInstance', mapDataSchema);
+mongoose.model('geodata', mapDataSchema);
