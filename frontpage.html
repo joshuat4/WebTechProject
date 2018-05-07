@@ -52,10 +52,10 @@
         display: block;
     }
 
-    .item0 { grid-area: main; }
-    .item1 { grid-area: item1; }
-    .item2 { grid-area: item2; }
-    .item3 { grid-area: item3; }
+    .item0 { grid-area: main; background-color: rgba(10, 10, 10, 0.7);}
+    .item1 { grid-area: item1; background-color: rgba(10, 10, 10, 0.7);}
+    .item2 { grid-area: item2; background-color: rgba(10, 10, 10, 0.7);}
+    .item3 { grid-area: item3; background-color: rgba(10, 10, 10, 0.7);}
 
     .grid-container {
         display: grid;
@@ -66,10 +66,8 @@
         grid-template-rows: 2fr 1fr;
         /*background-color: #FFFFFF;*/
         height: 100vh;
-        background-color: rgba(10, 10, 10, 0.7);
         background-image: url("https://image.ibb.co/dC6frn/Frontpage_BG.jpg");
         background-size:cover;
-        background-blend-mode: color;
         background-position: center;
     }
 
@@ -152,6 +150,7 @@
 </div>
 
 </body>
+<script src="https://sirxemic.github.io/jquery.ripples/jquery.ripples.js"></script>
 <script>
     document.getElementById("where").addEventListener("click", function(){
         window.location.replace("maps.html");
@@ -175,5 +174,19 @@
             $('ul.topnav li:nth-child(n+2)').css("display", "none");
         }
     }
+
+    $(document).ready(function() {
+        try {
+            $('.grid-container').ripples({
+                resolution: 512,
+                dropRadius: 10, //px
+                perturbance: 0.02,
+            });
+        }
+        catch (e) {
+            $('.error').show().text(e);
+        }
+
+    });
 </script>
 </html>
