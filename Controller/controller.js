@@ -3,8 +3,11 @@ var Stations = mongoose.model('geodata');
 
 
 var findAllStations = function(req,res){
+    var state = req.params.states;
     console.log("function ran");
-    Stations.find(function(err,geodata){
+    // var required_columns = "ADDITIONALINFO ADDRESS BUSINESSNAME BUSINESS_ID DESCRIPTION DROPOFF FEES GEO_LAT GEO_LON PHONE POSTCODE PROVIDER_NAME STATE SUBURB  WEBSITE Batteries Computers Electricals light_Globes Mobilephones Printer_catridges Televisions";
+    // { 'STATE': state }, required_columns,
+    Stations.find({ 'STATE': state },function(err,geodata){
         if(!err){
             res.send(geodata);
         }else{

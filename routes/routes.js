@@ -4,8 +4,8 @@ var router = express.Router();
 var controller = require('../Controller/controller.js');
 
 
-// Find all recycling stations
-router.get('/api',controller.findAllStations);
+// Find all recycling stations in a state
+router.get('/api/:states',controller.findAllStations);
 
 // Find one recycling station by id
 // router.get('/api/:id',controller.findOneStation);

@@ -8,9 +8,9 @@ var mapDataSchema = mongoose.Schema(
         BUSINESS_ID: {type: Number},
         BUSINESS_UID: {type: String},
         DESCRIPTION: {type: String, max: 300},
-        DROPOFF: {type: Boolean},
+        DROPOFF: {type: String},
         EMAIL: {type: String, required: false},
-        FEES: {type: Boolean},
+        FEES: {type: String},
         GEO_LAT: {type: Number, required: true},
         GEO_LON: {type: Number, required: true},
         PHONE: {type: String , required: false},
@@ -19,13 +19,13 @@ var mapDataSchema = mongoose.Schema(
         STATE: {type: String, required: true},
         SUBURB: {type: String, required: true},
         WEBSITE: {type: String, required: false},
-        Batteries: {type: Boolean, required: true},
-        Computers: {type: Boolean, required: true},
-        Electricals: {type: Boolean, required: true},
-        light_Globes: {type: Boolean, required: true},
-        Mobilephones: {type: Boolean, required: true},
-        Printer_catridges: {type: Boolean, required: true},
-        Televisions: {type: Boolean, required: true}
+        Batteries: {type: String, required: true},
+        Computers: {type: String, required: true},
+        Electricals: {type: String, required: true},
+        light_Globes: {type: String, required: true},
+        Mobilephones: {type: String, required: true},
+        Printer_catridges: {type: String, required: true},
+        Televisions: {type: String, required: true}
     }, {collection : 'geodata'}
 );
 
