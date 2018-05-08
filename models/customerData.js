@@ -16,5 +16,13 @@ var customerDataSchema = new Schema(
     }
 );
 
+// var Customer = mongoose.model('Customer',customerDataSchema);
+
+
+customerDataSchema.methods.countInArea = function(cb){
+    var allInArea = this.model('Customer').find({POSTCODE : this.POSTCODE}, cb);
+    return allInArea.count();
+};
+
 //Export model
 module.exports = mongoose.model('customerDataInstance', customerDataSchema);
