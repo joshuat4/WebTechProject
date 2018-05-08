@@ -237,33 +237,33 @@
 </div>
 <!--HTML-->
 <div class="container">
-    <form id="contact" onsubmit ="openModal()" action="frontpage.html" method="post">
+    <form id="contact" onsubmit ="openModal()" action="/partnerpost" method="post">
         <h3>Register to be a collection partner</h3>
         <h4>Enter your details below.</h4>
         <fieldset>
-            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
+            <input name = "NAME" placeholder="Your name" type="text" tabindex="1" required autofocus>
         </fieldset>
         <fieldset>
-            <input placeholder="Your Email Address" type="email" tabindex="2" required>
+            <input name = "EMAIL" placeholder="Your Email Address" type="email" tabindex="2" required>
         </fieldset>
         <fieldset>
-            <input placeholder="Business Phone Number" type="tel" tabindex="3" required>
+            <input name = "PHONE" placeholder="Business Phone Number" type="tel" tabindex="3" required>
         </fieldset>
         <fieldset>
-            <input placeholder="Street Address 1" type="text" tabindex="4" required>
+            <input name = "ADDRESS_LINE_1" placeholder="Street Address 1" type="text" tabindex="4" required>
         </fieldset>
         <fieldset>
-            <input placeholder="Street Address 2 (optional)" type="text" tabindex="5">
+            <input name = "ADDRESS_LINE_2" placeholder="Street Address 2 (optional)" type="text" tabindex="5">
         </fieldset>
         <fieldset>
-            <input placeholder="Suburb" type="text" tabindex="6" required>
+            <input name = "SUBURB" placeholder="Suburb" type="text" tabindex="6" required>
         </fieldset>
         <fieldset>
-            <input placeholder="Postcode" type="text" tabindex="7" required>
+            <input name = "POSTCODE" placeholder="Postcode" type="text" tabindex="7" required>
         </fieldset>
         <fieldset>
             What kind of waste would you be willing to accept?
-            <select name="waste type">
+            <select name="WASTE_TYPE">
                 <option value = "Mobile Phones">Mobile Phones</option>
                 <option value = "Televisions">Televisions</option>
                 <option value = "Batteries">Batteries</option>
@@ -275,10 +275,10 @@
         </fieldset>
 
         <fieldset>
-            <textarea placeholder="Briefly list your business profile details here.." tabindex="8" required></textarea>
+            <textarea name="DESCRIPTION" placeholder="Briefly list your business profile details here.." tabindex="8" required></textarea>
         </fieldset>
         <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+            <button type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
         </fieldset>
     </form>
 </div>
