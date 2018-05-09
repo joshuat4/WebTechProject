@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Stations = mongoose.model('geodata');
-
+var Customer = mongoose.model('customerDataInstance');
+const path = require('path');
 
 var findAllStations = function(req,res){
     var state = req.params.states;
@@ -27,6 +28,53 @@ var findAllStations = function(req,res){
 //     });
 // };
 
+var countInArea = function(inputPostcode, res){
+    var cust_length = 0;
+    var allInArea = Customer.find({POSTCODE : inputPostcode}, function(err, customers) {
+
+        console.log(customers.length);
+
+        cust_length =  customers.length;
+        // res.send(allInArea.count);
+    });
+    return cust_length;
+};
+
+var saveCustomer = function(req, res){
+    console.log("got customer form data! saving to database.");
+    var currCustomer = new Customer(req.body);
+
+    // currCustomer.save(function (err, newCustomer) {
+    //     if(!err){
+    //         res.status(200).sendFile(path.join(__dirname + '/checkRequests.html'));
+    //         countInArea(3000,res);
+    //
+    //         // res.send(newCustomer);
+    //     }else{
+    //         console.log("xd");
+    //         res.sendStatus(400);
+    //     }
+    // });
+
+
+    currCustomer.save()
+    .then(customer => {
+        res.status(200).sendFile(path.join(__dirname + '/checkRequests.html'));
+        countInArea(3000,res);
+    })
+    .catch(err => {
+        console.log("Error: " + err);
+        res.sendStatus(400);
+    })
+
+
+    // console.log("has counted");
+
+};
+
+
+module.exports.countInArea = countInArea;
+module.exports.saveCustomer = saveCustomer;
 // module.exports.createCafe = createCafe;
 module.exports.findAllStations = findAllStations;
 // module.exports.findOneCafe = findOneCafe;

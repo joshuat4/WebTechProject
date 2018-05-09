@@ -2,6 +2,9 @@
 
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
+
+
 var bodyParser = require('body-parser');
 var Customer = require('./models/customerData.js');
 var Partner = require('./models/partnerData.js');
@@ -10,6 +13,8 @@ const PORT = process.env.PORT || 3000;
 
 const path = require('path');
 
+// move all those *.html files to ./static/
+app.use(express.static('static'));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
 app.get('/frontpage.html', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
@@ -29,26 +34,35 @@ require('./models/db.js');
 
 // routes setup
 var routes = require('./routes/routes.js');
-app.use('/',routes);
 
 
 
 //DONT DELETE ( PROLLY SHOULD MOVE TO CONTROLLER THOUGH I DONT KNOW HOW)
 //CUSTOMER
-app.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({/**/
     extended: true
 }));
 
 app.use(bodyParser.json());
 
-app.post('/post', function(req, res){
-    console.log("got customer form data! saving to database.");
-    var currCustomer = new Customer(req.body);
-    currCustomer.save(function (err) {
-        if (err) return handleError(err);
-    });
-    res.status(200).sendFile(path.join(__dirname + '/checkRequests.html'));
-});
+app.use('/', routes);
+
+
+// var CustomerDataInstance = mongoose.model('customerDataInstance');
+// app.post('/post', function(req, res){
+//     console.log("got customer form data! saving to database.");
+//     var currCustomer = new Customer(req.body);
+//
+//     currCustomer.save(function (err) {
+//         if (err) return handleError(err);
+//     });
+//
+//     var count = CustomerDataInstance.countInArea(3000,res);
+//
+//     console.log("countInArea: " + count);
+//
+//     res.status(200).sendFile(path.join(__dirname + '/checkRequests.html'));
+// });
 
 
 //PARTNER

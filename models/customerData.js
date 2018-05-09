@@ -19,10 +19,12 @@ var customerDataSchema = new Schema(
 // var Customer = mongoose.model('Customer',customerDataSchema);
 
 
-customerDataSchema.methods.countInArea = function(cb){
-    var allInArea = this.model('Customer').find({POSTCODE : this.POSTCODE}, cb);
-    return allInArea.count();
-};
-
+// var countInArea = function(inputPostcode, res){
+//     var allInArea = this.model('Customer').find({POSTCODE : inputPostcode}, function(err, customers) {
+//         console.log(allInArea.count());
+//         res.send(allInArea.count());
+//     })}
+//
 //Export model
+// module.exports.countInArea = countInArea;
 module.exports = mongoose.model('customerDataInstance', customerDataSchema);

@@ -9,5 +9,7 @@ router.get('/api/:states',controller.findAllStations);
 
 // Find one recycling station by id
 // router.get('/api/:id',controller.findOneStation);
+// var CustomerDataInstance = mongoose.model('customerDataInstance');
+router.post('/post', controller.saveCustomer);
 
 module.exports = router;
