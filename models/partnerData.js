@@ -11,7 +11,6 @@ var partnerDataSchema = new Schema(
         ADDRESS_LINE_2: {type: String, required: false},
         SUBURB: {type: String, required: true},
         POSTCODE: {type: Number, required: true},
-        STATE: {type: String, required: true},
         WASTE_TYPE: {type:String, enum:['Mobile Phones', 'Televisions', 'Batteries', 'Computers', 'Small Appliances', 'Large Appliances', 'Others'], required: true},
         DESCRIPTION: {type: String, required: false}
     }
