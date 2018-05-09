@@ -25,9 +25,10 @@ var findCloseStations = function(req,res){
     Stations.find({ loc :
             { $geoWithin :
                     { $centerSphere :
-                            [ [ coords.lon , coords.lat ] , 30 / 3963.2 ]
+                            [ [ coords.lon , coords.lat ] , 10/3963.2 ]
                     } } },function(err,geodata){
         if(!err){
+            console.log(geodata);
             res.send(geodata);
         }else{
             res.sendStatus(404);

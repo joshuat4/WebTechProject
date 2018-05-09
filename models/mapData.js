@@ -25,7 +25,8 @@ var mapDataSchema = mongoose.Schema(
         light_Globes: {type: String, required: true},
         Mobilephones: {type: String, required: true},
         Printer_catridges: {type: String, required: true},
-        Televisions: {type: String, required: true}
+        Televisions: {type: String, required: true},
+        loc: {type: [Number], index: '2dsphere'}
     }, {collection : 'geodata'}
 );
 

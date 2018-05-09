@@ -300,17 +300,18 @@
             if (satisfy(data[i], filter_list)) {
                 mystr += '<div class="result"><div class="result-name"><b>' + data[i]["BUSINESSNAME"] + '</b></div>';
                 mystr += '<div class="result-address">' + data[i]["ADDRESS"] + ', ' + data[i]["SUBURB"] + '</div>';
-                mystr += '<div class="result-distance">' + (i).toString() + 'km' + '</div>';
+                mystr += '<div class="result-distance">' + calcDistance(data[i]).toString() + 'km' + '</div>';
                 mystr += '<div class="result-directions"><button class="directions-button">directions</button></div><div class="read-more">read more</div></div>';
             }
         }
         console.log(mystr);
         return mystr;
     }
+
     // Checks if a data point satisfies the filter requirements
     function satisfy(data_point, filter_list) {
-        for (var i = 0; i < filter_list.length; i++){
-            if (data_point[filter_list[i]]=='False') {
+        for (var i = 0; i < filter_list.length; i++) {
+            if (data_point[filter_list[i]] == 'False') {
                 console.log(false);
                 return false;
             }
@@ -318,6 +319,7 @@
         console.log(true);
         return true;
     }
+
     // google map object
     var map;
     var markersArray = [];
@@ -391,7 +393,7 @@
         // as supplied by the browser's 'navigator.geolocation' object.
         function geolocate() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
+                navigator.geolocation.getCurrentPosition(function (position) {
                     var geolocation = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
@@ -417,7 +419,7 @@
         // };
 
         //route display triggers (event delegation)
-        document.getElementById('results').onclick = function(event) {
+        document.getElementById('results').onclick = function (event) {
             if (event.target.className != 'directions-button') return;
 
             let pane = event.target.closest('.result');
@@ -432,7 +434,7 @@
                 destination: dest,
                 //document.getElementById('end').value
                 travelMode: 'DRIVING'
-            }, function(response, status) {
+            }, function (response, status) {
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
                 } else {
@@ -443,15 +445,16 @@
     }
 
     // Displays search results, and mark them on map
-    function refresh(){
+    function refresh() {
         //reinitiates map
         initMap();
 
         // replaces default marker with a marker on the address the user has entered
         codeAddress();
+
         function codeAddress() {
             var address = document.getElementById('autocomplete').value;
-            geocoder.geocode( { 'address': address}, function(results, status) {
+            geocoder.geocode({'address': address}, function (results, status) {
                 if (status == 'OK') {
                     deleteOrigin();
                     map.setCenter(results[0].geometry.location);
@@ -465,6 +468,7 @@
                 }
             });
         }
+
         function deleteOrigin() {
             if (originArray) {
                 for (i in originArray) {
@@ -475,13 +479,14 @@
         }
 
         // AJAX request to get data for search results and filter results
-        $.get("/api/VIC", function(data, status){
+        var query_uri = '/api/lon/' + originArray[0].position.lng().toString() + '/lat/' + originArray[0].position.lat().toString();
+        $.get(query_uri, function (data, status) {
             console.log(data);
             var filter_list = get_checked();
             document.getElementById("results").innerHTML = genstr(data, filter_list);
             plotter(data, filter_list);
 
-            document.getElementById('waste-menu').onclick = function(event) {
+            document.getElementById('waste-menu').onclick = function (event) {
                 if (event.target.type != 'checkbox') return;
                 var changed_filter = get_checked();
                 document.getElementById("results").innerHTML = genstr(data, changed_filter);
@@ -495,7 +500,7 @@
         function get_checked() {
             var $boxes = $('input[type=checkbox]:checked');
             var filter = [];
-            $boxes.each(function(){
+            $boxes.each(function () {
                 console.log($(this).val());
                 filter.push($(this).val());
             });
@@ -509,16 +514,16 @@
         var icon = {
             url: "https://recyclingnearyou.com.au//images/new/icons/map_pin.png", // url
             scaledSize: new google.maps.Size(30, 50), // scaled size
-            origin: new google.maps.Point(0,0), // origin
+            origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(15, 48) // anchor
         };
 
-        function plotter(data, filter_list){
+        function plotter(data, filter_list) {
             for (var i = 0; i < data.length; i++) {
                 var coords = data[i];
-                if (satisfy(coords, filter_list)){
-                    var latLng = new google.maps.LatLng(coords["GEO_LAT"],coords["GEO_LON"]);
-                    console.log(coords["GEO_LAT"],coords["GEO_LON"]);
+                if (satisfy(coords, filter_list)) {
+                    var latLng = new google.maps.LatLng(coords["GEO_LAT"], coords["GEO_LON"]);
+                    console.log(coords["GEO_LAT"], coords["GEO_LON"]);
                     var marker = new google.maps.Marker({
                         position: latLng,
                         map: map,
@@ -541,8 +546,9 @@
 
 
     }
+
     //when you press reset filters
-    function reset(){
+    function reset() {
         initMap();
         refresh(0);
         $('li input').prop('checked', false);
@@ -553,6 +559,8 @@
         var pi = Math.PI;
         var lat2 = location.GEO_LAT;
         var lon2 = location.GEO_LON;
+        var locLat = originArray[0].position.lat();
+        var locLon = originArray[0].position.lng();
         var dLat = (lat2 - locLat) * (pi / 180);
         var dLon = (lon2 - locLon) * (pi / 180);
 
@@ -570,13 +578,8 @@
     }
 
 
-
-
-
-</script>
-<script>
     function expand() {
-        if ($('.menu').css('display') == 'block'){
+        if ($('.menu').css('display') == 'block') {
             $('.menu').css('display', 'none');
             $('#expand_more').text("expand_more");
         }
