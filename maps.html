@@ -300,7 +300,7 @@
             if (satisfy(data[i], filter_list)) {
                 mystr += '<div class="result"><div class="result-name"><b>' + data[i]["BUSINESSNAME"] + '</b></div>';
                 mystr += '<div class="result-address">' + data[i]["ADDRESS"] + ', ' + data[i]["SUBURB"] + '</div>';
-                mystr += '<div class="result-distance">' + calcDistance(data[i]).toString() + 'km' + '</div>';
+                mystr += '<div class="result-distance">' + data[i].distance.toString() + 'km' + '</div>';
                 mystr += '<div class="result-directions"><button class="directions-button">directions</button></div><div class="read-more">read more</div></div>';
             }
         }
@@ -483,6 +483,10 @@
         $.get(query_uri, function (data, status) {
             console.log(data);
             var filter_list = get_checked();
+            assign_distance(data);
+            data.sort(function(a, b){
+                return a.distance-b.distance;
+            });
             document.getElementById("results").innerHTML = genstr(data, filter_list);
             plotter(data, filter_list);
 
@@ -495,6 +499,11 @@
             };
         });
 
+        function assign_distance(data){
+            for (var i = 0; i < data.length; i++){
+                data[i].distance = calcDistance(data[i]);
+            }
+        }
 
         // gets values of check items in filter
         function get_checked() {
