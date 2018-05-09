@@ -548,6 +548,28 @@
         $('li input').prop('checked', false);
     }
 
+    function calcDistance(location) {
+        var R = 6371; // km earth diameter
+        var pi = Math.PI;
+        var lat2 = location.GEO_LAT;
+        var lon2 = location.GEO_LON;
+        var dLat = (lat2 - locLat) * (pi / 180);
+        var dLon = (lon2 - locLon) * (pi / 180);
+
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(locLat * (pi / 180)) * Math.cos(locLat * (pi / 180)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        var dRound = (Math.round(d * 10)) / 10;
+        if (dRound != parseFloat(dRound)) {
+            return null;
+        } else {
+            return (Math.round(d * 10)) / 10;
+        }
+    }
+
+
 
 
 
