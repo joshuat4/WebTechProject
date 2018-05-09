@@ -330,7 +330,42 @@
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 12,
             center: melbourne,
-            styles: [ { "featureType": "administrative.land_parcel", "elementType": "labels", "stylers": [ { "visibility": "off" } ] }, { "featureType": "poi", "elementType": "labels.text", "stylers": [ { "visibility": "off" } ] }, { "featureType": "poi.business", "stylers": [ { "visibility": "off" } ] }, { "featureType": "poi.park", "elementType": "labels.text", "stylers": [ { "visibility": "off" } ] }, { "featureType": "road.arterial", "elementType": "labels", "stylers": [ { "visibility": "off" } ] }, { "featureType": "road.highway", "elementType": "labels", "stylers": [ { "visibility": "off" } ] }, { "featureType": "road.local", "stylers": [ { "visibility": "off" } ] }, { "featureType": "road.local", "elementType": "labels", "stylers": [ { "visibility": "off" } ] } ]
+            styles: [
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.business",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                }
+            ]
         });
 
         var marker = new google.maps.Marker({
@@ -340,34 +375,6 @@
         originArray.push(marker);
 
         geocoder = new google.maps.Geocoder();
-
-        codeAddress();
-
-        function codeAddress() {
-            var address = document.getElementById('autocomplete').value;
-            geocoder.geocode( { 'address': address}, function(results, status) {
-                if (status == 'OK') {
-                    deleteOrigin();
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                    originArray.push(marker);
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }
-
-        function deleteOrigin() {
-            if (originArray) {
-                for (i in originArray) {
-                    originArray[i].setMap(null);
-                }
-                originArray.length = 0;
-            }
-        }
 
         //initiates autocomplete, the function to autocomplete addresses
 
@@ -437,8 +444,38 @@
 
     // Displays search results, and mark them on map
     function refresh(){
+        //reinitiates map
         initMap();
-        $.get("http://localhost:3000/api/VIC", function(data, status){
+
+        // replaces default marker with a marker on the address the user has entered
+        codeAddress();
+        function codeAddress() {
+            var address = document.getElementById('autocomplete').value;
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == 'OK') {
+                    deleteOrigin();
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                    originArray.push(marker);
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+        function deleteOrigin() {
+            if (originArray) {
+                for (i in originArray) {
+                    originArray[i].setMap(null);
+                }
+                originArray.length = 0;
+            }
+        }
+
+        // AJAX request to get data for search results and filter results
+        $.get("/api/VIC", function(data, status){
             console.log(data);
             var filter_list = get_checked();
             document.getElementById("results").innerHTML = genstr(data, filter_list);
