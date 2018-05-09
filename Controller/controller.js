@@ -16,6 +16,24 @@ var findAllStations = function(req,res){
     });
 };
 
+var findCloseStations = function(req,res){
+    var coords = req.params;
+    console.log("function ran");
+    console.log(coords);
+
+    Stations.find({ loc :
+            { $geoWithin :
+                    { $centerSphere :
+                            [ [ coords.lon , coords.lat ] , 30 / 3963.2 ]
+                    } } },function(err,geodata){
+        if(!err){
+            res.send(geodata);
+        }else{
+            res.sendStatus(404);
+        }
+    });
+};
+
 // var findOneCafe = function(req,res){
 //     var cafeInx = req.params.id;
 //     Cafe.findById(cafeInx,function(err,cafe){
@@ -28,5 +46,6 @@ var findAllStations = function(req,res){
 // };
 
 // module.exports.createCafe = createCafe;
+module.exports.findCloseStations = findCloseStations;
 module.exports.findAllStations = findAllStations;
 // module.exports.findOneCafe = findOneCafe;
