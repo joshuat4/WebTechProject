@@ -47,6 +47,7 @@ var findCloseStations = function(req,res){
 //     });
 // };
 
+//For RequestForm/CheckRequests.
 var countInArea = function(inputPostcode, res){
     var cust_length = 0;
     var allInArea = Customer.find({POSTCODE : inputPostcode}, function(err, customers) {
@@ -62,7 +63,21 @@ var countInArea = function(inputPostcode, res){
 var saveCustomer = function(req, res){
     console.log("got customer form data! saving to database.");
     var currCustomer = new Customer(req.body);
+    console.log("Customer's Postcode is "+ currCustomer.POSTCODE);
 
+
+    currCustomer.save()
+    .then(customer => {
+        res.status(200).sendFile(path.join(__dirname + '/checkRequests.html'));
+        countInArea(currCustomer.POSTCODE,res);
+    })
+    .catch(err => {
+        console.log("Error: " + err);
+        res.sendStatus(400);
+    })
+
+
+    // This is the Alternative method.
     // currCustomer.save(function (err, newCustomer) {
     //     if(!err){
     //         res.status(200).sendFile(path.join(__dirname + '/checkRequests.html'));
@@ -74,17 +89,6 @@ var saveCustomer = function(req, res){
     //         res.sendStatus(400);
     //     }
     // });
-
-
-    currCustomer.save()
-    .then(customer => {
-        res.status(200).sendFile(path.join(__dirname + '/checkRequests.html'));
-        countInArea(3000,res);
-    })
-    .catch(err => {
-        console.log("Error: " + err);
-        res.sendStatus(400);
-    })
 
 
     // console.log("has counted");

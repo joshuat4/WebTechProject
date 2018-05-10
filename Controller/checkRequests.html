@@ -151,6 +151,7 @@
     <meta charset="UTF-8">
     <title>Check Requests</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src = "../Controller/controller.js"></script>
 </head>
 <body>
 <ul class="topnav">
@@ -176,9 +177,9 @@
         </div>
         <div class="shift-left">
            <br>
-            54 others have requested a pick-up in your area
+            <div id = "currCount">0 other people have requested a pickup in your area.</div>
             <br>
-            6 more till the threshold is met.
+            <div id = "countRemaining">6 more till the threshold is met.</div>
         </div>
         <div id="revise-search-button-container"><button id="revise-search-button">Revise Search</button></div>
         <div class="results" id="results">
@@ -234,6 +235,9 @@
         });
     };
 
+    function changeCount(){
+
+    }
 
 </script>
 <script>
