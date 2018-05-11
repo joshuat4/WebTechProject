@@ -15,4 +15,6 @@ router.get('/api/lon/:lon/lat/:lat',controller.findCloseStations);
 // var CustomerDataInstance = mongoose.model('customerDataInstance');
 router.post('/post', controller.saveCustomer);
 
+router.get('/api/postcode/:postcode', controller.countInArea);
+
 module.exports = router;

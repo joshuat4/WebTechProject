@@ -176,6 +176,26 @@
             <div class="search-button" id="search-button"><i class="material-icons">search</i></div>
         </div>
         <div class="shift-left">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script>
+                console.log("Starting Script 181");
+                var query_uri = '/api/postcode/' + 310157;
+
+
+                $.ajax({
+                    type: 'GET',
+                    url: query_uri,
+                    success: function(data) {
+                        console.log('success',data.length);
+                        $(document).ready(function(){
+                            $("#currCount").text(data.length + " other people have requested a pickup in your area.");
+                            $("#countRemaining").text(60 - data.length + " more till the threshold is met.");
+                        });
+
+                    }
+                });
+
+            </script>
            <br>
             <div id = "currCount">0 other people have requested a pickup in your area.</div>
             <br>
