@@ -223,10 +223,33 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
 </section>
 <body>
 <div class="search-container">
-    <form action="#">
-        <input type="text" placeholder="Search postcode..." name="search">
-        <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
+    <!--<form action="#">-->
+        <input type="text" placeholder="Search postcode..." id="searchPostcode">
+        <button id="searchButton"><i class="fa fa-search"></i></button>
+    <script>
+        $(document).ready(function(){
+            $('#searchButton').on('click', function() {
+                console.log("Button Clicked");
+                var $postcodeIn = $('#searchPostcode');
+                console.log($postcodeIn.val());
+                var query_uri = '/api/postcode/' + $postcodeIn.val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: query_uri,
+                    success: function(data) {
+                        console.log('success',data.length);
+                        $(document).ready(function(){
+                            $("#currCount").text("Current number of requests: " + data.length);
+                            $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
+                        });
+
+                    }
+                });
+            });
+        })
+    </script>
+    <!--</form>-->
 </div>
 <div class = "container">
 
@@ -249,7 +272,7 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
 </div>
     <script>
         console.log("Starting Script 250");
-        var query_uri = '/api/postcode/' + 310157;
+        var query_uri = '/api/postcode/' + 3000;
 
 
         $.ajax({
