@@ -212,11 +212,11 @@
     </script>
 </head>
 <ul class="topnav">
-    <li><a class="active" href="frontpage.html">ReeTech</a></li>
-    <li><a href="maps.html">Where to Recycle</a></li>
-    <li><a href="impactpage.html">Why Recycle</a></li>
-    <li><a href="RequestForm.html">Pickup Service</a></li>
-    <li><a href="collectionpartner.html">Collection Partners</a></li>
+    <li><a class="active" href="../frontpage.html">ReeTech</a></li>
+    <li><a href="../maps.html">Where to Recycle</a></li>
+    <li><a href="../impactpage.html">Why Recycle</a></li>
+    <li><a href="../RequestForm.html">Pickup Service</a></li>
+    <li><a href="../collectionpartner.html">Collection Partners</a></li>
 </ul>
 <section id="banner"  style="padding: 80px 0px;
 background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); background-position: 100% -20px;">
@@ -247,16 +247,34 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
         </div>
     </div>
 </div>
+    <script>
+        console.log("Starting Script 250");
+        var query_uri = '/api/postcode/' + 310157;
 
+
+        $.ajax({
+            type: 'GET',
+            url: query_uri,
+            success: function(data) {
+                console.log('success',data.length);
+                $(document).ready(function(){
+                    $("#currCount").text("Current number of requests: " + data.length);
+                    $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
+                });
+
+            }
+        });
+
+    </script>
 <div class="card">
     <div class="container-text">
         <h1><b>Delivery requests required for you area: 100 </b></h1>
         <br>
         <br>
-        <h1><b>Current number of request: 30 </b></h1>
+        <h1><b><div id = "currCount">Current number of requests: 30 </div></b></h1>
         <br>
         <br>
-        <h1><b>Number of requests left until delivery: 70 </b></h1>
+        <h1><b><div id = "countRemaining">Number of requests left until delivery: 70 </div></b></h1>
 </div>
 </div>
 
