@@ -153,6 +153,11 @@
             .loop(@i);
         }
 
+        body{
+            margin:0px;
+            padding:0px;
+        }
+
         .card {
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
             transition: 0.3s;
@@ -175,6 +180,7 @@
 
         .search-container input[type=text] {
             margin-top: 20px;
+            margin-left: 5px;
             height: 30px;
             font-size: 17px;
             padding:6px;
@@ -201,15 +207,6 @@
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-            window.randomize = function() {
-                $('.radial-progress').attr('data-progress', Math.floor(Math.random() * 100));
-            }
-            setTimeout(window.randomize, 200);
-            $('.radial-progress').click(window.randomize);
-        });
-    </script>
 </head>
 <ul class="topnav">
     <li><a class="active" href="../frontpage.html">ReeTech</a></li>
@@ -222,6 +219,27 @@
 background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); background-position: 100% -20px;">
 </section>
 <body>
+<script>
+    console.log("Starting Script 250");
+    var query_uri = '/api/postcode/' + 3000;
+
+
+
+
+    $.ajax({
+        type: 'GET',
+        url: query_uri,
+        success: function(data) {
+            console.log('success',data.length);
+            $(document).ready(function(){
+                $("#currCount").text("Current number of requests: " + data.length);
+                $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
+                $('.radial-progress').attr('data-progress', data.length);
+            });
+
+        }
+    });
+</script>
 <div class="search-container">
     <!--<form action="#">-->
         <input type="text" placeholder="Search postcode..." id="searchPostcode">
@@ -270,25 +288,6 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
         </div>
     </div>
 </div>
-    <script>
-        console.log("Starting Script 250");
-        var query_uri = '/api/postcode/' + 3000;
-
-
-        $.ajax({
-            type: 'GET',
-            url: query_uri,
-            success: function(data) {
-                console.log('success',data.length);
-                $(document).ready(function(){
-                    $("#currCount").text("Current number of requests: " + data.length);
-                    $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
-                });
-
-            }
-        });
-
-    </script>
 <div class="card">
     <div class="container-text">
         <h1><b>Delivery requests required for you area: 100 </b></h1>
@@ -303,4 +302,5 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
 
 </div>
 </body>
+
 </html>
