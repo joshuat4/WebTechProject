@@ -196,7 +196,7 @@
 <body>
 <!--HTML-->
 <div class="container">
-    <form id="contact" action = "/post" method="post">
+    <form id="contact" action = "/post" method="post" onsubmit="storePostcode()">
         <h3>Request a Pick-up</h3>
         <h4>Send a request for a pickup service in your area</h4>
         <fieldset>
@@ -218,7 +218,7 @@
             <input name = "SUBURB" placeholder="Suburb" type="text" tabindex="6" required>
         </fieldset>
         <fieldset>
-            <input name = "POSTCODE" placeholder="Postcode" type="text" tabindex="7" required>
+            <input name = "POSTCODE" id = "Postcode" placeholder="Postcode" type="text" tabindex="7" required>
         </fieldset>
         <fieldset>
             What would you like to recycle?
@@ -232,7 +232,6 @@
                 <option value = "Others">Others</option>
             </select>
         </fieldset>
-
         <fieldset>
             <textarea name = "DESCRIPTION" placeholder="If you selected others, please specify here..." tabindex="8"></textarea>
         </fieldset>
@@ -240,6 +239,17 @@
             <button type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
         </fieldset>
     </form>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        function storePostcode() {
+                console.log("BUTTON PRESSED");
+                var postcodeIn = $('#Postcode').val()
+                console.log("Postcode from form is " + postcodeIn);
+                sessionStorage.setItem('POSTCODE', postcodeIn);
+        };
+    </script>
 </div>
 </body>
 </html>

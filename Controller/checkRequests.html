@@ -181,7 +181,6 @@
                 console.log("Starting Script 181");
                 var query_uri = '/api/postcode/' + 310157;
 
-
                 $.ajax({
                     type: 'GET',
                     url: query_uri,
@@ -191,7 +190,6 @@
                             $("#currCount").text(data.length + " other people have requested a pickup in your area.");
                             $("#countRemaining").text(60 - data.length + " more till the threshold is met.");
                         });
-
                     }
                 });
 
@@ -199,7 +197,7 @@
            <br>
             <div id = "currCount">0 other people have requested a pickup in your area.</div>
             <br>
-            <div id = "countRemaining">6 more till the threshold is met.</div>
+            <div id = "countRemaining">100 more till the threshold is met.</div>
         </div>
         <div id="revise-search-button-container"><button id="revise-search-button">Revise Search</button></div>
         <div class="results" id="results">

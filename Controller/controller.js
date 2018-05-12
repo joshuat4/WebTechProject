@@ -83,8 +83,10 @@ var saveCustomer = function(req, res){
 
     currCustomer.save()
     .then(customer => {
+        console.log("REDIRECTING");
         res.status(200).sendFile(path.join(__dirname + '/deliveryTracker.html'));
-        // res.status(200).sendFile(path.join(__dirname + '/deliveryTracker.html?postcode='+currCustomer.POSTCODE));
+        // res.status(200).sendFile(path.join(__dirname + '/deliveryTracker.html'));
+        // res.status(200).sendFile(path.join(__dirname + '/deliveryTracker.html?postcode='+currCustomer.POSTCODE.toString()));
         // countInArea("/api/postcode/" + currCustomer.POSTCODE,res);
     })
     .catch(err => {
