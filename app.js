@@ -27,6 +27,7 @@ app.get('/partnerjoinform.html', (req, res) => res.sendFile(path.join(__dirname 
 app.get('/howtohelp.html', (req, res) => res.sendFile(path.join(__dirname + '/howtohelp.html')));
 app.get('/sowhat.html', (req, res) => res.sendFile(path.join(__dirname + '/sowhat.html')));
 app.get('/whatEwaste.html', (req, res) => res.sendFile(path.join(__dirname + '/whatEwaste.html')));
+app.get('/Controller/deliveryTracker.html', (req, res) => res.sendFile(path.join(__dirname + '/Controller/deliveryTracker.html')));
 
 
 // Database setup
