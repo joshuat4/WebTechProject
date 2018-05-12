@@ -154,7 +154,12 @@
     .result-address { grid-area: result-address; }
     .result-distance { grid-area: result-distance;
                        text-align: right; padding-right: 20px;}
-    .read-more { grid-area: read-more; }
+    .read-more {
+        grid-area: read-more;
+        text-decoration: underline;
+        color: #067e18;
+        cursor: pointer;
+    }
     .result-directions { grid-area: result-directions; }
 
     .result {
@@ -333,7 +338,7 @@
             </div>
             <div class="shift-left"><br><b>Filter By Distance</b><br></div>
             <div class="slidecontainer">
-                <input type="range" min="1" max="30" value="10">
+                <input type="range" min="1" max="30" value="8">
                 <div class="rangeslider__ruler">1km 30km</div>
                 <div class="rangeslider__current_value"></div>
             </div>
@@ -363,7 +368,7 @@
                 mystr += '<div class="result"><div class="result-name"><b>' + data[i]["BUSINESSNAME"] + '</b></div>';
                 mystr += '<div class="result-address">' + data[i]["ADDRESS"] + ', ' + data[i]["SUBURB"] + '</div>';
                 mystr += '<div class="result-distance">' + data[i].distance.toString() + 'km' + '</div>';
-                mystr += '<div class="result-directions"><button class="directions-button">directions</button></div><div class="read-more">read more</div></div>';
+                mystr += '<div class="result-directions"><button class="directions-button">directions</button></div><div class="read-more" id="'+ i.toString() +'">read more</div></div>';
             }
         }
         console.log(mystr);
@@ -443,7 +448,7 @@
 
         // A new Info Window is created and set content
         infowindow = new google.maps.InfoWindow({
-            content: '',
+            //content: "dsafgsdgsdfgdsfg",
             // Assign a maximum value for the width of the infowindow allows
             // greater control over the various content elements
             maxWidth: 350
@@ -503,7 +508,7 @@
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
                 } else {
-                    window.alert('Directions request failed due to ' + status);
+                    window.alert("Please enter a valid address");
                 }
             });
         }
@@ -518,8 +523,7 @@
             anchor: new google.maps.Point(15, 48) // anchor
         };
 
-        //reinitiates map
-        //initMap();
+        //google.maps.event.clearInstanceListeners(markersArray);
         deleteOverlays();
         // replaces default marker with a marker on the address the user has entered
         codeAddress();
@@ -529,6 +533,7 @@
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status == 'OK') {
                     deleteOrigin();
+
                     console.log(results[0].geometry.location.lng(), results[0].geometry.location.lat());
                     map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
@@ -536,6 +541,7 @@
                         position: results[0].geometry.location
                     });
                     map.setZoom(12);
+
                     originArray.push(marker);
                     var str = $('.rangeslider__current_value').text().toString();
                     var query_uri = '/api/lon/' + originArray[0].position.lng().toString() + '/lat/' + originArray[0].position.lat().toString() + '/distance/'+str.substring(0, str.length-2);
@@ -544,7 +550,7 @@
                         process(data, status);
                     });
                 } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                    alert("Please enter a valid address");
                 }
             });
 
@@ -605,8 +611,6 @@
         }
 
         // plots data on map if it satisfies filter lists
-
-
         function plotter(data, filter_list) {
             for (var i = 0; i < data.length; i++) {
                 var coords = data[i];
@@ -616,14 +620,46 @@
                     var marker = new google.maps.Marker({
                         position: latLng,
                         map: map,
-                        icon: icon
+                        icon: icon,
+                        id: coords["_id"]
                     });
+
+                    // var id = i.toString();
+                    // $('#'+id).click(function(marker) {
+                    //     console.log(id);
+                    //     infowindow.setContent(create_infowindow_string(data, i));
+                    //     infowindow.open(map, marker);
+                    // });
+
+
+                    document.getElementById(i.toString()).addEventListener('click', (function(marker, i) {
+                        return function() {
+                            console.log("info window opened");
+                            infowindow.setContent(create_infowindow_string(data, i));
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+
+
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            console.log("info window opened");
+                            infowindow.setContent(create_infowindow_string(data, i));
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+
+                    google.maps.event.addListener(map, 'click', function(event) {
+                        if (infowindow) {
+                            infowindow.close(); }
+                    });
+
+
                     markersArray.push(marker);
                 }
 
             }
         }
-
         function deleteOverlays() {
             if (markersArray) {
                 for (i in markersArray) {
@@ -634,6 +670,59 @@
         }
 
 
+    }
+
+    function create_infowindow_string(data, i) {
+        console.log(i);
+        return '<div><h3>'+ data[i]["BUSINESSNAME"] +'</h3></div>' +
+            '<div><b>Address: </b>'+ data[i]["ADDRESS"] + ', ' + data[i]["SUBRUB"]+ ', '+ data[i]["STATE"]+ ', '+ data[i]["POSTCODE"]+ '</div>' +
+            '<div><b>Phone: </b>'+ data[i]["PHONE"] + '<br><b>Email: </b>'+ data[i]["EMAIL"] +'</div>' +
+            '<div><b>Website: </b>'+ data[i]["WEBSITE"] +
+            '<div><b>Description: </b>'+ data[i]["DESCRIPTION"] +'</div>' +
+            '<div><b>Additional info: </b>'+ data[i]["ADDITIONALINFO"] +'</div>' +
+            '<table class="tg">\n' +
+            '  <tr>\n' +
+            '    <th class="infowindow-cells">Waste Type</th>\n' +
+            '    <th class="infowindow-cells">Recycled Here</th>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td class="infowindow-cells">Batteries</td>\n' +
+            '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Batteries"]) +'</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td class="infowindow-cells">Computers</td>\n' +
+            '    <td class="infowindow-cells">' + Bool_to_Yes(data[i]["Computers"]) +'</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td class="infowindow-cells">Electricals</td>\n' +
+            '    <td class="infowindow-cells">' + Bool_to_Yes(data[i]["Electricals"]) +'</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td class="infowindow-cells">light Globes</td>\n' +
+            '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["light_Globes"]) +'</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td class="infowindow-cells">Mobile Phones</td>\n' +
+            '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Mobilephones"]) +'</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td class="infowindow-cells">Printer Cartridges</td>\n' +
+            '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Printer_catridges"]) +'</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td class="infowindow-cells">Televisions</td>\n' +
+            '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Televisions"]) +'</td>\n' +
+            '  </tr>\n' +
+            '</table>';
+    }
+
+    function Bool_to_Yes(bool) {
+        if (bool=="True"){
+            return "yes";
+        }
+        else {
+            return "no";
+        }
     }
 
     //when you press reset filters
