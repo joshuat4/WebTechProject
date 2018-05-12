@@ -8,7 +8,7 @@ var controller = require('../Controller/controller.js');
 router.get('/api/:states',controller.findAllStations);
 
 // Find all recycling stations in a state, and 50km from user address
-router.get('/api/lon/:lon/lat/:lat',controller.findCloseStations);
+router.get('/api/lon/:lon/lat/:lat/distance/:distance',controller.findCloseStations);
 
 // Find one recycling station by id
 // router.get('/api/:id',controller.findOneStation);

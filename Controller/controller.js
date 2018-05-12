@@ -28,9 +28,6 @@ var countInArea = function(req, res){
 
 var findAllStations = function(req,res){
     var state = req.params.states;
-    console.log("findAllStations ran");
-    // var required_columns = "ADDITIONALINFO ADDRESS BUSINESSNAME BUSINESS_ID DESCRIPTION DROPOFF FEES GEO_LAT GEO_LON PHONE POSTCODE PROVIDER_NAME STATE SUBURB  WEBSITE Batteries Computers Electricals light_Globes Mobilephones Printer_catridges Televisions";
-    // { 'STATE': state }, required_columns,
     Stations.find({ 'STATE': state },function(err,geodata){
         if(!err){
             res.send(geodata);
@@ -48,7 +45,7 @@ var findCloseStations = function(req,res){
     Stations.find({ loc :
             { $geoWithin :
                     { $centerSphere :
-                            [ [ coords.lon , coords.lat ] , 10/3963.2 ]
+                            [ [ coords.lon , coords.lat ] , coords.distance/6371 ]
                     } } },function(err,geodata){
         if(!err){
             console.log(geodata);

@@ -242,6 +242,28 @@
         height: 36px;
     }
 
+    .rangeslider__ruler {
+        font-size: 1em;
+        margin: 10px 3px 0 3px;
+        position: relative;
+        top: 100%;
+        text-align: justify;
+    }
+
+    /* Workaround to justify only one-line.
+     Extra element to force a new line.*/
+    .rangeslider__ruler:after {
+       content: "";
+       display: inline-block;
+       width: 100%;
+    }
+
+    .rangeslider__current_value {
+        text-align: center;
+        color: #1a84af;
+        margin-top: -30px;
+        font-size: 1.1em;
+    }
     .rangeslider,
     .rangeslider__fill {
         transition: background 1s;
@@ -309,7 +331,11 @@
                 </ul>
             </div>
             <div class="shift-left"><br><b>Filter By Distance</b><br></div>
-            <div class="slidecontainer"><input type="range" min="10" max="100" value="20"></div>
+            <div class="slidecontainer">
+                <input type="range" min="1" max="30" value="10">
+                <div class="rangeslider__ruler">1km 30km</div>
+                <div class="rangeslider__current_value"></div>
+            </div>
             <div id="revise-search-button-container"><button id="revise-search-button" onclick="reset()">Clear Filters</button></div>
             <div class="shift-left"><b>Recycling spots near me:</b></div>
             <br>
@@ -360,6 +386,7 @@
     var markersArray = [];
     var originArray = [];
     var geocoder;
+    var infowindow;
 
     function initMap() {
         //intiates map, default centre of map is center of Melbourne
@@ -413,16 +440,23 @@
 
         geocoder = new google.maps.Geocoder();
 
+        // A new Info Window is created and set content
+        infowindow = new google.maps.InfoWindow({
+            content: '',
+            // Assign a maximum value for the width of the infowindow allows
+            // greater control over the various content elements
+            maxWidth: 350
+        });
+
         //initiates autocomplete, the function to autocomplete addresses
-
         var placeSearch, autocomplete;
-
         autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
             {
                 types: ['geocode'],
                 componentRestrictions: {country: 'au'}
             });
+
 
         // Bias the autocomplete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
@@ -441,17 +475,12 @@
                 });
             }
         }
-
         geolocate();
 
         //initiates route display function on maps
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
         directionsDisplay.setMap(map);
-
-        // var onChangeHandler = function() {
-        //     calculateAndDisplayRoute(directionsService, directionsDisplay);
-        // };
 
         //route display triggers (event delegation)
         document.getElementById('results').onclick = function (event) {
@@ -481,9 +510,16 @@
 
     // Displays search results, and mark them on map
     function refresh() {
-        //reinitiates map
-        initMap();
+        var icon = {
+            url: "https://recyclingnearyou.com.au//images/new/icons/map_pin.png", // url
+            scaledSize: new google.maps.Size(30, 50), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(15, 48) // anchor
+        };
 
+        //reinitiates map
+        //initMap();
+        deleteOverlays();
         // replaces default marker with a marker on the address the user has entered
         codeAddress();
 
@@ -492,16 +528,25 @@
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status == 'OK') {
                     deleteOrigin();
+                    console.log(results[0].geometry.location.lng(), results[0].geometry.location.lat());
                     map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
                         map: map,
                         position: results[0].geometry.location
                     });
+                    map.setZoom(12);
                     originArray.push(marker);
+                    var str = $('.rangeslider__current_value').text().toString();
+                    var query_uri = '/api/lon/' + originArray[0].position.lng().toString() + '/lat/' + originArray[0].position.lat().toString() + '/distance/'+str.substring(0, str.length-2);
+                    console.log(str);
+                    $.get(query_uri, function(data, status){
+                        process(data, status);
+                    });
                 } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                 }
             });
+
         }
 
         function deleteOrigin() {
@@ -514,9 +559,15 @@
         }
 
         // AJAX request to get data for search results and filter results
-        var query_uri = '/api/lon/' + originArray[0].position.lng().toString() + '/lat/' + originArray[0].position.lat().toString();
-        $.get(query_uri, function (data, status) {
-            console.log(data);
+        console.log(originArray[0].position.lng(), originArray[0].position.lat());
+
+        // $.get(query_uri, function(data, status){
+        //     process(data, status);
+        // });
+
+        function process(data, status) {
+            // console.log("get ran");
+            // console.log(data);
             var filter_list = get_checked();
             assign_distance(data);
             data.sort(function(a, b){
@@ -532,7 +583,7 @@
                 deleteOverlays();
                 plotter(data, changed_filter);
             };
-        });
+        }
 
         function assign_distance(data){
             for (var i = 0; i < data.length; i++){
@@ -554,13 +605,6 @@
 
         // plots data on map if it satisfies filter lists
 
-
-        var icon = {
-            url: "https://recyclingnearyou.com.au//images/new/icons/map_pin.png", // url
-            scaledSize: new google.maps.Size(30, 50), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(15, 48) // anchor
-        };
 
         function plotter(data, filter_list) {
             for (var i = 0; i < data.length; i++) {
@@ -594,7 +638,7 @@
     //when you press reset filters
     function reset() {
         initMap();
-        refresh(0);
+        refresh();
         $('li input').prop('checked', false);
     }
 
@@ -643,10 +687,21 @@
 
         $('input[type=range]')
             .rangeslider({
-                polyfill: false
+                polyfill: false,
+
+                onInit: function() {
+                    $(".rangeslider__current_value").html(this.value.toString() + ' km');
+                },
+
+                onSlideEnd: function(position, value) {
+                    console.log(position, value);
+                    refresh();
+                }
             })
             .on('input', function() {
                 const fraction = (this.value - this.min) / (this.max - this.min);
+                console.log(this.value);
+                $(".rangeslider__current_value").html(this.value.toString()+' km');
                 if (fraction === 0) {
                     this.nextSibling.classList.add(cssClasses[0]);
                 } else if (fraction === 1) {
@@ -656,6 +711,8 @@
                 }
             });
     });
+
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&libraries=places&callback=initMap"
         async defer>
