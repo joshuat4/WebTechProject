@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.css" rel="stylesheet">
 <style>
     /*Header Styling*/
     ul.topnav {
@@ -44,9 +45,11 @@
         flex-direction: column;
         max-height: 100%;
         min-height: 100%;
+        box-shadow: 1px 0 4px rgba(41,51,57,.5);
+        z-index: 1;
     }
     .map {grid-area: map; z-index:0;}
-    .header {grid-area: header; box-shadow: 0 1px 4px rgba(41,51,57,.5); z-index: 1;}
+    .header {grid-area: header; box-shadow: 0 1px 4px rgba(41,51,57,.5); z-index: 2;}
 
     .map-interface {
         display: grid;
@@ -115,7 +118,7 @@
     }
 
     .menu {
-        display:none;
+        display:block;
         height: 160px;
         overflow-y: auto;
     }
@@ -227,11 +230,41 @@
         margin-left: -15px !important;
     }
 </style>
+<style>
+    /* Range Slider Styling*/
+    .slidecontainer {
+        /*width: 100%;*/
+        padding: 20px;
+    }
+
+    .rangeslider__handle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .rangeslider,
+    .rangeslider__fill {
+        transition: background 1s;
+    }
+
+    .rangeslider__fill {
+        background-color: #00b3b3;
+    }
+
+    .rangeslider--is-lowest-value {
+        background-color: white;
+    }
+
+    .rangeslider--is-highest-value .rangeslider__fill {
+        background-color: #1a84af;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Maps</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.js"></script>
 </head>
 <body>
 <div class="map-interface">
@@ -255,29 +288,31 @@
         </div>
         <!--search bar-->
         <div class="search-bar">
-        <div class="input-field">
-            <input id="autocomplete" placeholder="Find your suburb or address..">
-        </div>
-        <div class="search-button" id="search-button" onclick="refresh()"><i class="material-icons">search</i></div>
+            <div class="input-field">
+                <input id="autocomplete" placeholder="Find your suburb or address..">
+            </div>
+            <div class="search-button" id="search-button" onclick="refresh()"><i class="material-icons">search</i></div>
         </div>
         <br>
         <div class="shift-left" id="filter-bar" onclick="expand()">
             <b>Filter by Waste</b>
-        <div class="expand"><i id="expand_more" class="material-icons">expand_more</i></div></div>
-        <div class="menu">
-            <ul id="waste-menu">
-                <li><input type="checkbox" value="Batteries"> Batteries</li>
-                <li><input type="checkbox" value="Computers"> Computers and Accessories</li>
-                <li><input type="checkbox" value="Electricals"> Electrical Appliances</li>
-                <li><input type="checkbox" value="light_Globes"> Light Globes</li>
-                <li><input type="checkbox" value="Mobilephones"> Mobile Phones</li>
-                <li><input type="checkbox" value="Printer_catridges"> Printer Cartridges</li>
-                <li><input type="checkbox" value="Televisions"> Televisions</li>
-            </ul>
-        </div>
-        <div id="revise-search-button-container"><button id="revise-search-button" onclick="reset()">Clear Filters</button></div>
-        <div class="shift-left"><b>Recycling spots near me:</b></div>
-        <br>
+            <div class="expand"><i id="expand_more" class="material-icons">expand_less</i></div></div>
+            <div class="menu">
+                <ul id="waste-menu">
+                    <li><input type="checkbox" value="Batteries"> Batteries</li>
+                    <li><input type="checkbox" value="Computers"> Computers and Accessories</li>
+                    <li><input type="checkbox" value="Electricals"> Electrical Appliances</li>
+                    <li><input type="checkbox" value="light_Globes"> Light Globes</li>
+                    <li><input type="checkbox" value="Mobilephones"> Mobile Phones</li>
+                    <li><input type="checkbox" value="Printer_catridges"> Printer Cartridges</li>
+                    <li><input type="checkbox" value="Televisions"> Televisions</li>
+                </ul>
+            </div>
+            <div class="shift-left"><br><b>Filter By Distance</b><br></div>
+            <div class="slidecontainer"><input type="range" min="10" max="100" value="20"></div>
+            <div id="revise-search-button-container"><button id="revise-search-button" onclick="reset()">Clear Filters</button></div>
+            <div class="shift-left"><b>Recycling spots near me:</b></div>
+            <br>
         </div>
         <div class="results" id="results">
             <!--<div class="result">-->
@@ -598,6 +633,29 @@
         }
     };
 
+</script>
+<script>
+    $(function() {
+        const cssClasses = [
+            'rangeslider--is-lowest-value',
+            'rangeslider--is-highest-value'
+        ];
+
+        $('input[type=range]')
+            .rangeslider({
+                polyfill: false
+            })
+            .on('input', function() {
+                const fraction = (this.value - this.min) / (this.max - this.min);
+                if (fraction === 0) {
+                    this.nextSibling.classList.add(cssClasses[0]);
+                } else if (fraction === 1) {
+                    this.nextSibling.classList.add(cssClasses[1]);
+                } else {
+                    this.nextSibling.classList.remove(...cssClasses)
+                }
+            });
+    });
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxm0AcWVkBRFAQa3bb2cPY3rRCO_qKWR8&libraries=places&callback=initMap"
         async defer>
