@@ -156,6 +156,8 @@
         body{
             margin:0px;
             padding:0px;
+            background-color: rgba(255, 250, 255, 0.46);
+            margin-bottom: 10vh;
         }
 
         .card {
@@ -168,6 +170,7 @@
             margin-right: 3vw;
             padding: 20px;
             padding-top: 50px;
+            background-color:white;
 
         }
 
@@ -202,6 +205,12 @@
             background: #58ac58;
         }
 
+        .bannerText{
+            font-family: "Source Sans Pro";
+            margin-left: 10vw;
+            font-size:2vw;
+            color: #0e4e09;
+        }
 
 
     </style>
@@ -213,35 +222,46 @@
     <li><a href="../maps.html">Where to Recycle</a></li>
     <li><a href="../impactpage.html">Why Recycle</a></li>
     <li><a href="../RequestForm.html">Pickup Service</a></li>
+    <li><a href="../Controller/deliveryTracker.html">Pickup Progress Tracker</a></li>
     <li><a href="../collectionpartner.html">Collection Partners</a></li>
 </ul>
 <section id="banner"  style="padding: 80px 0px;
 background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); background-position: 100% -20px;">
+    <div class = bannerText>
+        <h1>Pickup Progress Tracker</h1>
+    </div>
 </section>
 <body>
 <script>
     console.log("Starting Script 250");
-    var query_uri = '/api/postcode/' + 3000;
+    var inputPostcode = sessionStorage.getItem('POSTCODE');
+    var query_uri = '/api/postcode/' + inputPostcode;
+    console.log("readPostcode: "+inputPostcode.toString());
 
 
+    $(document).ready(function() {
+        $.ajax({
+            type: 'GET',
+            url: query_uri,
+            success: function (data) {
+                console.log('success', data.length);
+                $(document).ready(function () {
+                    $("#currCount").text("Current number of requests: " + data.length);
+                    if(100 < data.length){
+                        $("#countRemaining").text("Number of requests left until delivery: 0");
+                        $('.radial-progress').attr('data-progress', 100);
 
+                    }else {
+                        $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
+                        $('.radial-progress').attr('data-progress', data.length);
+                    }
+                });
 
-    $.ajax({
-        type: 'GET',
-        url: query_uri,
-        success: function(data) {
-            console.log('success',data.length);
-            $(document).ready(function(){
-                $("#currCount").text("Current number of requests: " + data.length);
-                $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
-                $('.radial-progress').attr('data-progress', data.length);
-            });
-
-        }
+            }
+        });
     });
 </script>
 <div class="search-container">
-    <!--<form action="#">-->
         <input type="text" placeholder="Search postcode..." id="searchPostcode">
         <button id="searchButton"><i class="fa fa-search"></i></button>
     <script>
@@ -259,7 +279,15 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
                         console.log('success',data.length);
                         $(document).ready(function(){
                             $("#currCount").text("Current number of requests: " + data.length);
-                            $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
+                            if(100 < data.length){
+                                $("#countRemaining").text("Number of requests left until delivery: 0");
+                                $('.radial-progress').attr('data-progress', 100);
+
+                            }else {
+                                $("#countRemaining").text("Number of requests left until delivery: "+ (100 - data.length));
+                                $('.radial-progress').attr('data-progress', data.length);
+
+                            }
                         });
 
                     }
@@ -267,7 +295,6 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
             });
         })
     </script>
-    <!--</form>-->
 </div>
 <div class = "container">
 
@@ -290,13 +317,13 @@ background-image: url('http://jonvilma.com/images/green-grass-field-1.jpg'); bac
 </div>
 <div class="card">
     <div class="container-text">
-        <h1><b>Delivery requests required for you area: 100 </b></h1>
+        <h1><b>Delivery requests required for you area: <span>100</span> </b></h1>
         <br>
         <br>
-        <h1><b><div id = "currCount">Current number of requests: 30 </div></b></h1>
+        <h1><b><div id = "currCount">Current number of requests: <span>0</span> </div></b></h1>
         <br>
         <br>
-        <h1><b><div id = "countRemaining">Number of requests left until delivery: 70 </div></b></h1>
+        <h1><b><div id = "countRemaining">Number of requests left until delivery: <span>100</span> </div></b></h1>
 </div>
 </div>
 
