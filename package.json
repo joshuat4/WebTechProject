@@ -1,6 +1,9 @@
 {
   "name": "webtechcomingsoon",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.1.2"
+  },
   "main": "app.js",
   "scripts": {
     "start": "node app.js"

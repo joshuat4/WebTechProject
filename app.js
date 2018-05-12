@@ -32,7 +32,6 @@ app.get('/Controller/deliveryTracker.html', (req, res) => res.sendFile(path.join
 
 // Database setup
 require('./models/db.js');
-
 // routes setup
 var routes = require('./routes/routes.js');
 
@@ -80,7 +79,7 @@ app.post('/partnerpost', function(req, res){
 
 
 
-app.listen(PORT, function(req, res){
+app.listen(PORT, function(){
     console.log(`Express listening on port ${PORT}`);
 });
 
