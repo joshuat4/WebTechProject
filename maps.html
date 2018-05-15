@@ -74,13 +74,13 @@
     }*/
 
     .input-field { grid-area: input-field; }
-    .search-button { grid-area: search-button; }
+    .search-button-container { grid-area: search-button; }
 
     .search-bar {
         display: grid;
         grid-template-areas:
                 'input-field search-button';
-        grid-template-columns: 300px 50px;
+        grid-template-columns: 290px 1fr;
         background-color: #FFFFFF;
         height: 40px;
         margin: 10px 20px 0 20px;
@@ -98,12 +98,26 @@
         width:100%
     }
 
-    .search-button {
+    .search-button-container {
         text-align: center;
         height: 100%;
         width: 100%;
         cursor: pointer;
+        border-left: 1px solid #b6b6b6;
 
+    }
+
+    #search-button {
+        height: 40px;
+        width: 100%;
+        border: none;
+        border-radius: 0 2px 2px 0;
+        color: white;
+        background-color: #2A87CA;
+    }
+
+    #search-button:hover {
+        cursor: pointer;
     }
 
     .expand {
@@ -319,7 +333,7 @@
             <div class="input-field">
                 <input id="autocomplete" placeholder="Find your suburb or address..">
             </div>
-            <div class="search-button" id="search-button" onclick="refresh()"><i class="material-icons">search</i></div>
+            <div class="search-button-container" onclick="refresh()"><button id="search-button"><b>Find</b></button></div>
         </div>
         <br>
         <div class="shift-left" id="filter-bar" onclick="expand()">
