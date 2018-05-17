@@ -300,6 +300,29 @@
         background-color: #1a84af;
     }
 </style>
+<style>
+    /*Marker Infowindow Styling*/
+    .tg {
+        mso-cellspacing: 0;
+    }
+
+    .table-header {
+        background-color: #0d990d;
+    }
+
+    .grey {
+        background-color: #aaaaaa;
+    }
+
+    .infowindow-cells-0 {
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .infowindow-cells {
+        text-align: center;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Maps</title>
@@ -694,37 +717,37 @@
             '<div><b>Website: </b>'+ data[i]["WEBSITE"] +
             '<div><b>Description: </b>'+ data[i]["DESCRIPTION"] +'</div>' +
             '<div><b>Additional info: </b>'+ data[i]["ADDITIONALINFO"] +'</div>' +
-            '<table class="tg">\n' +
-            '  <tr>\n' +
-            '    <th class="infowindow-cells">Waste Type</th>\n' +
+            '<table class="tg" CELLSPACING="0">\n' +
+            '  <tr class="table-header">\n' +
+            '    <th class="infowindow-cells-0">Waste Type</th>\n' +
             '    <th class="infowindow-cells">Recycled Here</th>\n' +
             '  </tr>\n' +
-            '  <tr>\n' +
-            '    <td class="infowindow-cells">Batteries</td>\n' +
+            '  <tr class="white">\n' +
+            '    <td class="infowindow-cells-0">Batteries</td>\n' +
             '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Batteries"]) +'</td>\n' +
             '  </tr>\n' +
-            '  <tr>\n' +
-            '    <td class="infowindow-cells">Computers</td>\n' +
+            '  <tr class="grey">\n' +
+            '    <td class="infowindow-cells-0">Computers</td>\n' +
             '    <td class="infowindow-cells">' + Bool_to_Yes(data[i]["Computers"]) +'</td>\n' +
             '  </tr>\n' +
-            '  <tr>\n' +
-            '    <td class="infowindow-cells">Electricals</td>\n' +
+            '  <tr class="white">\n' +
+            '    <td class="infowindow-cells-0">Electricals</td>\n' +
             '    <td class="infowindow-cells">' + Bool_to_Yes(data[i]["Electricals"]) +'</td>\n' +
             '  </tr>\n' +
-            '  <tr>\n' +
-            '    <td class="infowindow-cells">light Globes</td>\n' +
+            '  <tr class="grey">\n' +
+            '    <td class="infowindow-cells-0">light Globes</td>\n' +
             '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["light_Globes"]) +'</td>\n' +
             '  </tr>\n' +
-            '  <tr>\n' +
-            '    <td class="infowindow-cells">Mobile Phones</td>\n' +
+            '  <tr class="white">\n' +
+            '    <td class="infowindow-cells-0">Mobile Phones</td>\n' +
             '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Mobilephones"]) +'</td>\n' +
             '  </tr>\n' +
-            '  <tr>\n' +
-            '    <td class="infowindow-cells">Printer Cartridges</td>\n' +
+            '  <tr class="grey">\n' +
+            '    <td class="infowindow-cells-0">Printer Cartridges</td>\n' +
             '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Printer_catridges"]) +'</td>\n' +
             '  </tr>\n' +
-            '  <tr>\n' +
-            '    <td class="infowindow-cells">Televisions</td>\n' +
+            '  <tr class="white">\n' +
+            '    <td class="infowindow-cells-0">Televisions</td>\n' +
             '    <td class="infowindow-cells">'+ Bool_to_Yes(data[i]["Televisions"]) +'</td>\n' +
             '  </tr>\n' +
             '</table>';
@@ -732,10 +755,10 @@
 
     function Bool_to_Yes(bool) {
         if (bool=="True"){
-            return "yes";
+            return '<i class="material-icons" style="color: green;">check</i>';
         }
         else {
-            return "no";
+            return '<i class="material-icons" style="color: red;">close</i>';
         }
     }
 
