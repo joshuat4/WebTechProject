@@ -302,16 +302,54 @@
 </style>
 <style>
     /*Marker Infowindow Styling*/
+    .gm-style .gm-style-iw {
+        top: 0 !important;
+        left: 0 !important;
+
+        width: 100% !important;
+        min-height: 120px !important;
+        max-height: 400px !important;
+        box-sizing: border-box !important;
+        padding: 10px 10px 10px 10px;
+        display: block !important;
+        overflow-y: auto;
+    }
+
+    .iw-bottom-gradient {
+        position: sticky;
+        width: 100%;
+        height: 35px;
+        bottom: -15px;
+        left: 0px;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    }
+
+    .gm-style-iw > div {
+        max-height: none !important;
+
+    }
+
     .tg {
-        mso-cellspacing: 0;
+        width: 100%;
     }
 
     .table-header {
         background-color: #0d990d;
     }
 
+    th {
+        padding: 10px 0 10px 0;
+    }
+
     .grey {
-        background-color: #aaaaaa;
+        background-color: #cccccc;
+    }
+
+    .white {
+        background-color: #eeeeee;
     }
 
     .infowindow-cells-0 {
@@ -322,6 +360,7 @@
     .infowindow-cells {
         text-align: center;
     }
+
 </style>
 <head>
     <meta charset="UTF-8">
@@ -674,6 +713,7 @@
                             console.log("info window opened");
                             infowindow.setContent(create_infowindow_string(data, i));
                             infowindow.open(map, marker);
+                            $('.gm-style-iw').parent().css('width', '350px');
                         }
                     })(marker, i));
 
@@ -683,6 +723,8 @@
                             console.log("info window opened");
                             infowindow.setContent(create_infowindow_string(data, i));
                             infowindow.open(map, marker);
+                            $('.gm-style-iw').parent().css('width', '350px');
+                            $('.gm-style-iw').append('<div class="iw-bottom-gradient"></div>');
                         }
                     })(marker, i));
 
@@ -715,8 +757,8 @@
             '<div><b>Address: </b>'+ data[i]["ADDRESS"] + ', ' + data[i]["SUBRUB"]+ ', '+ data[i]["STATE"]+ ', '+ data[i]["POSTCODE"]+ '</div>' +
             '<div><b>Phone: </b>'+ data[i]["PHONE"] + '<br><b>Email: </b>'+ data[i]["EMAIL"] +'</div>' +
             '<div><b>Website: </b>'+ data[i]["WEBSITE"] +
-            '<div><b>Description: </b>'+ data[i]["DESCRIPTION"] +'</div>' +
-            '<div><b>Additional info: </b>'+ data[i]["ADDITIONALINFO"] +'</div>' +
+            '<div><br><b>Description: </b>'+ data[i]["DESCRIPTION"] +'<br><br></div>' +
+            '<div><b>Additional info: </b>'+ data[i]["ADDITIONALINFO"] +'<br><br></div>' +
             '<table class="tg" CELLSPACING="0">\n' +
             '  <tr class="table-header">\n' +
             '    <th class="infowindow-cells-0">Waste Type</th>\n' +
@@ -806,6 +848,7 @@
 
 </script>
 <script>
+    /* Range slider javascript*/
     $(function() {
         const cssClasses = [
             'rangeslider--is-lowest-value',
