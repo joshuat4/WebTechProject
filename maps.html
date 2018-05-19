@@ -65,7 +65,13 @@
         overflow: hidden;
         font-family: 'Source Sans Pro';
     }
-
+    .loading {
+        display: none;
+        grid-column: 2;
+        grid-row: 2;
+        z-index: 1;
+        background-color: rgba(123,123,123,0.5);
+    }
 
     /*.search-container {
         background-color:  #3cba54;
@@ -121,20 +127,17 @@
     }
 
     .expand {
-        margin-left: 220px;
+        float: right;
+        margin-right: 20px;
         display: inline-block;
-        font-size: 30px;
-
-    }
-
-    #expand_more {
-        font-size: 30px;
+        color: #2A87CA;
+        text-decoration: underline;
     }
 
     .menu {
         display:block;
-        height: 160px;
-        overflow-y: auto;
+        /*height: 160px;
+        overflow-y: auto;*/
     }
 
     #waste-menu {
@@ -147,23 +150,35 @@
         padding: 10px 10px 0 0;
     }
 
-    #revise-search-button {
+    #revise-search-button, #bottom-search-button {
         background-color: #ffffff;
         border-radius: 2px;
-        border: 2px solid #333333;
-        color: #333333;
+        border: 2px solid #555555;
+        color: #555555;
         padding: 7px 10px 7px 10px;
         text-align: center;
         -webkit-transition-duration: 0.5s; /* Safari */
         transition-duration: 0.5s;
     }
 
-    #revise-search-button:hover {
-        background-color: #333333; /* Green */
+    #bottom-search-button {
+        border: 2px solid #2A87CA;
+        color: #2A87CA;
+        padding: 7px 25px 7px 25px;
+        margin-right: 15px;
+    }
+
+    #revise-search-button:hover{
+        background-color: #555555;
         color: #ffffff;
     }
 
-    /*Grid template for search result layout */
+    #bottom-search-button:hover {
+        background-color: #2A87CA;
+        color: #ffffff;
+    }
+
+          /*Grid template for search result layout */
     .result-name { grid-area: result-name; }
     .result-address { grid-area: result-address; }
     .result-distance { grid-area: result-distance;
@@ -194,12 +209,16 @@
         overflow-y: auto;
     }
 
-    #filter-bar {
+    .filter-bar {
         transition-duration: 0.5s;
+        /*border-top: black solid 1px;
+        border-bottom: black solid 1px;*/
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
-    #filter-bar:hover {
-        background-color: #eeeeee;
+    .filter-bar:hover {
+        background-color: #cccccc;
         cursor: pointer;
     }
 
@@ -310,7 +329,7 @@
         min-height: 120px !important;
         max-height: 400px !important;
         box-sizing: border-box !important;
-        padding: 10px 10px 10px 10px;
+        padding: 10px 10px 10px 15px;
         display: block !important;
         overflow-y: auto;
     }
@@ -348,8 +367,16 @@
         background-color: #cccccc;
     }
 
+    .grey:hover {
+        background-color: #aaaaaa;
+    }
+
     .white {
         background-color: #eeeeee;
+    }
+
+    .white:hover {
+        background-color: #999999;
     }
 
     .infowindow-cells-0 {
@@ -359,6 +386,68 @@
 
     .infowindow-cells {
         text-align: center;
+    }
+
+    .iw-directions-button {
+        float: right;
+        margin-bottom: 10px;
+    }
+
+</style>
+<style>
+    /* Loading wheel styling */
+
+    .loading {
+        display: none;
+        grid-template-columns: 1fr 302px 1fr;
+        grid-template-rows: 1fr 302px 1fr;
+    }
+
+    .lds-css {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    @keyframes lds-dual-ring {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    @-webkit-keyframes lds-dual-ring {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    .lds-dual-ring {
+        position: relative;
+    }
+    .lds-dual-ring div {
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        top: 20px;
+        left: 20px;
+        border-radius: 50%;
+        border: 30px solid #000;
+        border-color: #0aa811 transparent #0aa811 transparent;
+        -webkit-animation: lds-dual-ring 1.3s linear infinite;
+        animation: lds-dual-ring 1.3s linear infinite;
+    }
+    .lds-dual-ring {
+        width: 200px !important;
+        height: 200px !important;
+        -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+        transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
     }
 
 </style>
@@ -398,9 +487,10 @@
             <div class="search-button-container" onclick="refresh()"><button id="search-button"><b>Find</b></button></div>
         </div>
         <br>
-        <div class="shift-left" id="filter-bar" onclick="expand()">
+        <div class="shift-left filter-bar" onclick="expand()">
             <b>Filter by Waste</b>
-            <div class="expand"><i id="expand_more" class="material-icons">expand_less</i></div></div>
+            <div class="expand" id="expand_more">hide</div>
+        </div>
             <div class="menu">
                 <ul id="waste-menu">
                     <li><input type="checkbox" value="Batteries"> Batteries</li>
@@ -412,14 +502,19 @@
                     <li><input type="checkbox" value="Televisions"> Televisions</li>
                 </ul>
             </div>
-            <div class="shift-left"><br><b>Filter By Distance</b><br></div>
+            <div class="shift-left filter-bar" onclick="expand_slider()">
+                <b>Filter By Distance</b>
+                <div class="expand" id="expand_more_distance">hide</div>
+            </div>
             <div class="slidecontainer">
                 <input type="range" min="1" max="30" value="8">
                 <div class="rangeslider__ruler">1km 30km</div>
                 <div class="rangeslider__current_value"></div>
             </div>
-            <div id="revise-search-button-container"><button id="revise-search-button" onclick="reset()">Clear Filters</button></div>
-            <div class="shift-left"><b>Recycling spots near me:</b></div>
+            <div id="revise-search-button-container">
+                <button id="revise-search-button" onclick="reset()">Clear Filters</button>
+                <button id="bottom-search-button" onclick="refresh()">Search</button>
+            </div>
             <br>
         </div>
         <div class="results" id="results">
@@ -434,14 +529,17 @@
     </div>
     <!--the map-->
     <div class="map" id="map"></div>
+    <div class="loading">
+        <div class="lds-css ng-scope"><div style="width:100%;height:100%" class="lds-dual-ring"><div></div></div></div>
+    </div>
 </div>
 </body>
 <script>
     function genstr(data, filter_list) {
-        var mystr = "";
+        var mystr = '<div class="shift-left"><b>Recycling spots near me:</b></div><br>';
         for (var i = 0; i < data.length; i++) {
             if (satisfy(data[i], filter_list)) {
-                mystr += '<div class="result"><div class="result-name"><b>' + data[i]["BUSINESSNAME"] + '</b></div>';
+                mystr += '<div class="result" value='+i.toString()+'><div class="result-name"><b>' + data[i]["BUSINESSNAME"] + '</b></div>';
                 mystr += '<div class="result-address">' + data[i]["ADDRESS"] + ', ' + data[i]["SUBURB"] + '</div>';
                 mystr += '<div class="result-distance">' + data[i].distance.toString() + 'km' + '</div>';
                 mystr += '<div class="result-directions"><button class="directions-button">directions</button></div><div class="read-more" id="'+ i.toString() +'">read more</div></div>';
@@ -469,6 +567,8 @@
     var originArray = [];
     var geocoder;
     var infowindow;
+    var directionsService;
+    var directionsDisplay;
 
     function initMap() {
         //intiates map, default centre of map is center of Melbourne
@@ -560,34 +660,11 @@
         geolocate();
 
         //initiates route display function on maps
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsService = new google.maps.DirectionsService;
+        directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
         directionsDisplay.setMap(map);
 
-        //route display triggers (event delegation)
-        document.getElementById('results').onclick = function (event) {
-            if (event.target.className != 'directions-button') return;
 
-            let pane = event.target.closest('.result');
-            // console.log(pane.childNodes[1].textContent);
-            calculateAndDisplayRoute(directionsService, directionsDisplay, pane.childNodes[1].textContent);
-        };
-
-        //plots route from A to B on maps
-        function calculateAndDisplayRoute(directionsService, directionsDisplay, dest) {
-            directionsService.route({
-                origin: document.getElementById('autocomplete').value,
-                destination: dest,
-                //document.getElementById('end').value
-                travelMode: 'DRIVING'
-            }, function (response, status) {
-                if (status === 'OK') {
-                    directionsDisplay.setDirections(response);
-                } else {
-                    window.alert("Please enter a valid address");
-                }
-            });
-        }
     }
 
     // Displays search results, and mark them on map
@@ -598,11 +675,13 @@
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(15, 48) // anchor
         };
-
+        initiate_loading();
         //google.maps.event.clearInstanceListeners(markersArray);
         deleteOverlays();
         // replaces default marker with a marker on the address the user has entered
         codeAddress();
+
+
 
         function codeAddress() {
             var address = document.getElementById('autocomplete').value;
@@ -666,6 +745,36 @@
                 deleteOverlays();
                 plotter(data, changed_filter);
             };
+
+            //route display triggers (event delegation)
+            document.getElementById('results').onclick = function (event) {
+                if (event.target.className != 'directions-button') return;
+
+                let pane = event.target.closest('.result');
+                // console.log(pane.childNodes[1].textContent);
+                console.log(pane.getAttribute("value"));
+                calculateAndDisplayRoute(directionsService, directionsDisplay, data[pane.getAttribute("value")]);
+            };
+
+            finish_loading();
+        }
+
+        //plots route from A to B on maps
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, dest) {
+            console.log(dest);
+            var destination = new google.maps.LatLng(parseFloat(dest["GEO_LAT"]),parseFloat(dest["GEO_LON"]));
+            directionsService.route({
+                origin: document.getElementById('autocomplete').value,
+                destination: destination,
+                //document.getElementById('end').value
+                travelMode: 'DRIVING'
+            }, function (response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert(status);
+                }
+            });
         }
 
         function assign_distance(data){
@@ -714,6 +823,13 @@
                             infowindow.setContent(create_infowindow_string(data, i));
                             infowindow.open(map, marker);
                             $('.gm-style-iw').parent().css('width', '350px');
+                            $('.gm-style-iw').append('<div class="iw-bottom-gradient"></div>');
+                            document.getElementById('iw-directions-button').addEventListener('click', function(event) {
+                                console.log(this.getAttribute("value"));
+                                calculateAndDisplayRoute(directionsService, directionsDisplay, data[this.getAttribute("value")]);
+                                if (infowindow) {
+                                    infowindow.close(); }
+                            });
                         }
                     })(marker, i));
 
@@ -725,6 +841,12 @@
                             infowindow.open(map, marker);
                             $('.gm-style-iw').parent().css('width', '350px');
                             $('.gm-style-iw').append('<div class="iw-bottom-gradient"></div>');
+                            document.getElementById('iw-directions-button').addEventListener('click', function(event) {
+                                console.log(this.getAttribute("value"));
+                                calculateAndDisplayRoute(directionsService, directionsDisplay, data[this.getAttribute("value")]);
+                                if (infowindow) {
+                                    infowindow.close(); }
+                            });
                         }
                     })(marker, i));
 
@@ -732,6 +854,7 @@
                         if (infowindow) {
                             infowindow.close(); }
                     });
+
 
 
                     markersArray.push(marker);
@@ -749,16 +872,29 @@
         }
 
 
+
+    }
+
+    function false_data_checker (data_string, pre, end){
+        if(data_string == "False"){
+            return '';
+        }
+        else {
+            return pre+data_string+end;
+        }
     }
 
     function create_infowindow_string(data, i) {
-        console.log(i);
+        // console.log(data[i]);
         return '<div><h3>'+ data[i]["BUSINESSNAME"] +'</h3></div>' +
-            '<div><b>Address: </b>'+ data[i]["ADDRESS"] + ', ' + data[i]["SUBRUB"]+ ', '+ data[i]["STATE"]+ ', '+ data[i]["POSTCODE"]+ '</div>' +
-            '<div><b>Phone: </b>'+ data[i]["PHONE"] + '<br><b>Email: </b>'+ data[i]["EMAIL"] +'</div>' +
-            '<div><b>Website: </b>'+ data[i]["WEBSITE"] +
-            '<div><br><b>Description: </b>'+ data[i]["DESCRIPTION"] +'<br><br></div>' +
-            '<div><b>Additional info: </b>'+ data[i]["ADDITIONALINFO"] +'<br><br></div>' +
+            '<div><b>Address: </b>'+ data[i]["ADDRESS"] + ', ' + data[i]["SUBURB"]+ ', '+ data[i]["STATE"]+ ', '+ data[i]["POSTCODE"]+ '</div>' +
+            false_data_checker(data[i]["PHONE"] ,'<div><b>Phone: </b>','</div>')+
+            false_data_checker(data[i]["EMAIL"], '<div><b>Email: </b>','</div>') +
+            false_data_checker(data[i]["WEBSITE"], '<div><b>Website: </b>','</div>') +
+            '<div><button class="directions-button iw-directions-button" id="iw-directions-button" value="'+i.toString()+'">Directions</button></div>'+
+            false_data_checker(data[i]["DESCRIPTION"], '<div><br><b>Description: </b>','</div>')+
+            false_data_checker(data[i]["ADDITIONALINFO"], '<div><br><b>Additional info: </b>', '</div>') +
+            '<br>'+
             '<table class="tg" CELLSPACING="0">\n' +
             '  <tr class="table-header">\n' +
             '    <th class="infowindow-cells-0">Waste Type</th>\n' +
@@ -837,14 +973,35 @@
 
     function expand() {
         if ($('.menu').css('display') == 'block') {
-            $('.menu').css('display', 'none');
-            $('#expand_more').text("expand_more");
+            $('.menu').slideUp();
+            $('#expand_more').text("show");
         }
         else {
-            $('.menu').css('display', 'block')
-            $('#expand_more').text("expand_less");
+            $('.menu').slideDown();
+            $('#expand_more').text("hide");
         }
     };
+
+    function expand_slider() {
+        if ($('.slidecontainer').css('display') == 'block') {
+            $('.slidecontainer').slideUp();
+            $('#expand_more_distance').text("show");
+        }
+        else {
+            $('.slidecontainer').slideDown();
+            $('#expand_more_distance').text("hide");
+        }
+    }
+
+    function initiate_loading(){
+        $('.loading').css('display', 'grid');
+        console.log("initiated");
+    }
+
+    function finish_loading(){
+        $('.loading').css('display', 'none');
+        console.log("finished");
+    }
 
 </script>
 <script>
