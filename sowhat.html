@@ -2,38 +2,10 @@
 <html lang="en">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="topbar.css">
 <style>
-    ul.topnav {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #FFF;
-        font-family: 'Source Sans Pro';
-        font-size: 16px;
-    }
-
-    ul.topnav li {float: left;}
-
-    ul.topnav li a {
-        display: block;
-        color: Black;
-        text-align: center;
-        padding: 20px;
-        text-decoration: none;
-        transition: 1s;
-    }
-
-    ul.topnav li a:hover:not(.active) {background-color: #333; color: #FFF}
-
-    ul.topnav li a.active {background-color: #333; color: #FFF}
-
-    ul.topnav li.right {float: right;}
-
-    @media screen and (max-width: 600px){
-        ul.topnav li.right,
-        ul.topnav li {float: none;}
-    }
 
     body {
         background-color: #D3D3D3;
@@ -223,6 +195,7 @@
     <title>So What?</title>
 </head>
 <ul class="topnav">
+    <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
     <li><a class="active" href="frontpage.html">ReeTech</a></li>
     <li><a href="maps.html">Where to Recycle</a></li>
     <li><a href="impactpage.html">Why Recycle</a></li>
@@ -255,5 +228,6 @@ background-image: url('https://image.ibb.co/jCMq2S/banner.jpg'); background-posi
     </div>
     <div class="fab"><a href = "impactpage.html" style="text-decoration: none"><i class="fa fa-arrow-left fa-3x" ></i></a></div>
 </div>
+<script src="topbar.js"></script>
 </body>
 </html>

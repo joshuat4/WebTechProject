@@ -33,10 +33,22 @@
 
     ul.topnav li.right {float: right;}
 
+    ul.topnav button {
+        display: none;
+        float: right;
+        background:none;
+        border:none;
+        margin: 5px 10px 0 0;
+    }
+
     @media screen and (max-width: 600px){
         ul.topnav li.right,
         ul.topnav li {float: none;}
+        ul.topnav li {display: none}
+        ul.topnav button {display: block}
     }
+
+
 </style>
 <style>
     .navigator {
@@ -463,6 +475,7 @@
     <!--header-->
     <div class="header">
     <ul class="topnav">
+        <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
         <li><a class="active" href="frontpage.html">ReeTech</a></li>
         <li><a href="maps.html">Where to Recycle</a></li>
         <li><a href="impactpage.html">Why Recycle</a></li>
@@ -1003,6 +1016,18 @@
         console.log("finished");
     }
 
+</script>
+<script>
+    function menu() {
+        console.log()
+        if ($('ul.topnav li:nth-child(2)').css('display') == 'none'){
+            $('ul.topnav li:nth-child(n+2)').css("display", "block");
+        }
+        else {
+            console.log("running else");
+            $('ul.topnav li:nth-child(n+2)').css("display", "none");
+        }
+    }
 </script>
 <script>
     /* Range slider javascript*/
