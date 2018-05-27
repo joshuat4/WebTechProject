@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="topbar.css">
+
 <style>
 
     ul.topnav {
@@ -13,40 +15,6 @@
         background-color: #FFF;
         font-family: 'Source Sans Pro';
         width:100%;
-    }
-
-    ul.topnav li {float: left;}
-
-    ul.topnav li a {
-        display: block;
-        color: Black;
-        text-align: center;
-        padding: 20px;
-        text-decoration: none;
-        transition: 1s;
-    }
-
-    ul.topnav li a:hover {background-color: #333; color: #FFF}
-
-
-    ul.topnav li.right {float: right;}
-
-    button {
-        display: none;
-        background:none;
-        border:none;
-    }
-
-    @media screen and (max-width: 600px){
-        button {
-            display: block;
-            float: right;
-            margin: 12px 10px 13px 0;
-        }
-        ul.topnav li.right,
-        ul.topnav li {float: none; text-align:center;}
-        ul.topnav li:nth-child(n+2) {display:none;}
-
     }
 
     .mobile-show {
@@ -169,6 +137,7 @@
 
 </body>
 <script src="https://sirxemic.github.io/jquery.ripples/jquery.ripples.js"></script>
+<script src="topbar.js"></script>
 <script>
     document.getElementById("where").addEventListener("click", function(){
         window.location.replace("maps.html");
@@ -181,17 +150,6 @@
     document.getElementById("pickup").addEventListener("click", function(){
         window.location.replace("RequestForm.html");
     });
-
-    function menu() {
-        console.log()
-        if ($('ul.topnav li:nth-child(2)').css('display') == 'none'){
-            $('ul.topnav li:nth-child(n+2)').css("display", "block");
-        }
-        else {
-            console.log("running else");
-            $('ul.topnav li:nth-child(n+2)').css("display", "none");
-        }
-    }
 
     $(document).ready(function() {
         try {
