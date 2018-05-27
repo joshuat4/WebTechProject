@@ -97,6 +97,7 @@
     .near, .on_the_way {
         padding: 10px 10px 10px 10px;
         border-bottom: 2px solid black;
+        transition: 0.3s;
     }
 
     .near:hover, .on_the_way:hover {
@@ -231,11 +232,11 @@
         color: #ffffff;
     }
 
-          /*Grid template for search result layout */
+    /*Grid template for search result layout */
     .result-name { grid-area: result-name; }
     .result-address { grid-area: result-address; }
     .result-distance { grid-area: result-distance;
-                       text-align: right; padding-right: 20px;}
+        text-align: right; padding-right: 20px;}
     .read-more {
         grid-area: read-more;
         text-decoration: underline;
@@ -340,9 +341,9 @@
     /* Workaround to justify only one-line.
      Extra element to force a new line.*/
     .rangeslider__ruler:after {
-       content: "";
-       display: inline-block;
-       width: 100%;
+        content: "";
+        display: inline-block;
+        width: 100%;
     }
 
     .rangeslider__current_value {
@@ -511,15 +512,15 @@
 <div class="map-interface">
     <!--header-->
     <div class="header">
-    <ul class="topnav">
-        <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
-        <li><a class="active" href="index.html">ReeTech</a></li>
-        <li><a href="maps.html">Where to Recycle</a></li>
-        <li><a href="impactpage.html">Why Recycle</a></li>
-        <li><a href="RequestForm.html">Pickup Service</a></li>
-        <li><a href="deliveryTracker.html">Pickup Progress Tracker</a></li>
-        <li><a href="collectionpartner.html">Collection Partners</a></li>
-    </ul>
+        <ul class="topnav">
+            <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
+            <li><a class="active" href="frontpage.html">ReeTech</a></li>
+            <li><a href="maps.html">Where to Recycle</a></li>
+            <li><a href="impactpage.html">Why Recycle</a></li>
+            <li><a href="RequestForm.html">Pickup Service</a></li>
+            <li><a href="Controller/deliveryTracker.html">Pickup Progress Tracker</a></li>
+            <li><a href="collectionpartner.html">Collection Partners</a></li>
+        </ul>
     </div>
 
     <!--the section where you can search and filter-->
@@ -533,36 +534,36 @@
                 <br>
                 My address
             </div>
-        <!--search bar-->
-        <div class="search-bar" id="search-bar-0">
-            <div class="input-field">
-                <input id="autocomplete" placeholder="Find your suburb or address..">
+            <!--search bar-->
+            <div class="search-bar" id="search-bar-0">
+                <div class="input-field">
+                    <input id="autocomplete" placeholder="Find your suburb or address..">
+                </div>
+                <div class="search-button-container" onclick="refresh(0)"><button id="search-button"><b>Find</b></button></div>
             </div>
-            <div class="search-button-container" onclick="refresh(0)"><button id="search-button"><b>Find</b></button></div>
-        </div>
-        <div class="shift-left" id="description1">
+            <div class="shift-left" id="description1">
+                <br>
+                Origin
+            </div>
+            <div class="search-bar" id="search-bar-1">
+                <div class="input-field1">
+                    <input id="autocomplete1" placeholder="Find your suburb or address..">
+                </div>
+            </div>
+            <div class="shift-left" id="description2">
+                <br>
+                Destination
+            </div>
+            <div class="search-bar" id="search-bar-2">
+                <div class="input-field1">
+                    <input id="autocomplete2" placeholder="Find your suburb or address..">
+                </div>
+            </div>
             <br>
-            Origin
-        </div>
-        <div class="search-bar" id="search-bar-1">
-            <div class="input-field1">
-                <input id="autocomplete1" placeholder="Find your suburb or address..">
+            <div class="shift-left filter-bar" onclick="expand()">
+                <b>Filter by Waste</b>
+                <div class="expand" id="expand_more">hide</div>
             </div>
-        </div>
-        <div class="shift-left" id="description2">
-            <br>
-            Destination
-        </div>
-        <div class="search-bar" id="search-bar-2">
-            <div class="input-field1">
-                <input id="autocomplete2" placeholder="Find your suburb or address..">
-            </div>
-        </div>
-        <br>
-        <div class="shift-left filter-bar" onclick="expand()">
-            <b>Filter by Waste</b>
-            <div class="expand" id="expand_more">hide</div>
-        </div>
             <div class="menu">
                 <ul id="waste-menu">
                     <li><input type="checkbox" value="Batteries"> Batteries</li>
@@ -584,22 +585,22 @@
                 <div class="rangeslider__current_value"></div>
             </div>
             <div class="revise-search-button-container" id="button_set_0">
-                <button class="revise-search-button" onclick="reset()">Clear Filters</button>
+                <button class="revise-search-button" onclick="reset(0)">Clear Filters</button>
                 <button class="bottom-search-button" onclick="refresh(0)">Search</button>
             </div>
             <div class="revise-search-button-container" id="button_set_1">
-                <button class="revise-search-button" onclick="reset()">Clear Filters</button>
+                <button class="revise-search-button" onclick="reset(1)">Clear Filters</button>
                 <button class="bottom-search-button" onclick="refresh(1)">Search</button>
             </div>
             <br>
         </div>
         <div class="results" id="results">
             <!--<div class="result">-->
-                <!--<div class="result-name">Dropoff one</div>-->
-                <!--<div class="result-address">1 Random Place, Melbourne</div>-->
-                <!--<div class="result-distance">0.5km</div>-->
-                <!--<div class="result-directions"><button>directions</button></div>-->
-                <!--<div class="read-more">read more</div>-->
+            <!--<div class="result-name">Dropoff one</div>-->
+            <!--<div class="result-address">1 Random Place, Melbourne</div>-->
+            <!--<div class="result-distance">0.5km</div>-->
+            <!--<div class="result-directions"><button>directions</button></div>-->
+            <!--<div class="read-more">read more</div>-->
             <!--</div>-->
         </div>
     </div>
@@ -614,15 +615,27 @@
     function genstr(data, filter_list, protocol=0) {
         var count = 0;
         var button = 'Directions';
+        var mystr = '<div class="shift-left"><b>Recycling spots near me:</b></div><br>';
+        var origin_dest_distance=0;
         if (protocol!==0){
             button='Show Route';
+            mystr = '<div class="shift-left"><b>Best Dropoffs on the way:</b></div><br>';
+            origin_dest_distance = calcDistance({
+                GEO_LON: originArray[0].position.lng(),
+                GEO_LAT: originArray[0].position.lat()
+            }, originArray[1].position)-0.5;
         }
-        var mystr = '<div class="shift-left"><b>Recycling spots near me:</b></div><br>';
+
         for (var i = 0; i < data.length; i++) {
             if (satisfy(data[i], filter_list)) {
                 mystr += '<div class="result" value='+i.toString()+'><div class="result-name"><b>' + data[i]["BUSINESSNAME"] + '</b></div>';
                 mystr += '<div class="result-address">' + data[i]["ADDRESS"] + ', ' + data[i]["SUBURB"] + '</div>';
-                mystr += '<div class="result-distance">' + data[i].distance.toFixed(2) + 'km' + '</div>';
+                mystr += '<div class="result-distance">';
+                if(protocol!==0){
+                    mystr+='+';
+                }
+                mystr += (data[i].distance-origin_dest_distance).toFixed(2);
+                mystr += 'km' + '</div>';
                 mystr += '<div class="result-directions"><button class="directions-button">'+button+'</button></div><div class="read-more" id="'+ i.toString() +'">read more</div></div>';
                 count += 1;
                 if (protocol!==0&&count>=10){
@@ -793,7 +806,7 @@
                         map: map,
                         position: results[0].geometry.location
                     });
-                    map.setZoom(12);
+                    //map.setZoom(15);
 
                     originArray.push(marker);
                     var str = $('.rangeslider__current_value').text().toString();
@@ -803,6 +816,7 @@
                         process(data, status);
                     });
                 } else {
+                    finish_loading();
                     alert("Please enter a valid address");
                 }
             });
@@ -834,18 +848,23 @@
                             map.setCenter(new google.maps.LatLng(latitude, longitude));
 
                             map.setZoom(12);
-                            var str = $('.rangeslider__current_value').text().toString();
-                            var query_uri = '/api/lon/' + longitude.toString() + '/lat/' + latitude.toString() + '/distance/'+str.substring(0, str.length-2);
-                            console.log(str);
+                            var distance = calcDistance({
+                                GEO_LON: results[0].geometry.location.lng(),
+                                GEO_LAT: results[0].geometry.location.lat()
+                            }, results2[0].geometry.location).toString();
+                            console.log(distance);
+                            var query_uri = '/api/lon/' + longitude.toString() + '/lat/' + latitude.toString() + '/distance/'+distance;
                             $.get(query_uri, function(data, status){
                                 process(data, status, 1);
                             });
                         } else {
                             deleteOrigin();
+                            finish_loading();
                             alert("Please enter a valid destination");
                         }
                     });
                 } else {
+                    finish_loading();
                     alert("Please enter a valid origin");
                 }
             });
@@ -881,11 +900,21 @@
             data.sort(function(a, b){
                 return a.distance-b.distance;
             });
+
+            if (addresses===0){
+                var bounds  = new google.maps.LatLngBounds();
+                for (var k = 0; k < data.length; k++){
+                    bounds.extend(new google.maps.LatLng(data[k].GEO_LAT, data[k].GEO_LON));
+                }
+                map.fitBounds(bounds);
+                map.panToBounds(bounds);
+            }
+
             document.getElementById("results").innerHTML = genstr(data, filter_list, addresses);
             plotter(data, filter_list, addresses);
 
             document.getElementById('waste-menu').onclick = function (event) {
-                if (event.target.type != 'checkbox') return;
+                if (event.target.type !== 'checkbox') return;
                 var changed_filter = get_checked();
                 document.getElementById("results").innerHTML = genstr(data, changed_filter, addresses);
                 deleteOverlays();
@@ -894,16 +923,15 @@
 
             //route display triggers (event delegation)
             document.getElementById('results').onclick = function (event) {
-                if (event.target.className != 'directions-button') return;
+                if (event.target.className !== 'directions-button') return;
 
                 let pane = event.target.closest('.result');
                 // console.log(pane.childNodes[1].textContent);
-                console.log(pane.getAttribute("value"));
+                // console.log(pane.getAttribute("value"));
                 if (addresses===0) {
                     calculateAndDisplayRoute(directionsService, directionsDisplay, data[pane.getAttribute("value")]);
                 } else {
-                    console.log("alksdjghlksajg");
-                    console.log(originArray[0].position.lng(0), originArray[1].position.lng());
+                    // console.log(originArray[0].position.lng(0), originArray[1].position.lng());
                     calculateAndDisplayRoutes(directionsService, directionsDisplay, data[pane.getAttribute("value")], originArray[1].position);
                 }
             };
@@ -933,7 +961,7 @@
             console.log(dest);
             var destination = new google.maps.LatLng(parseFloat(dest["GEO_LAT"]),parseFloat(dest["GEO_LON"]));
             directionsService.route({
-                origin: document.getElementById('autocomplete').value,
+                origin: document.getElementById('autocomplete1').value,
                 destination: final_dest,
                 //document.getElementById('end').value
                 waypoints: [{
@@ -1129,13 +1157,16 @@
     }
 
     //when you press reset filters
-    function reset() {
-        initMap();
-        refresh();
+    function reset(protocol) {
+        // initMap();
+
         $('li input').prop('checked', false);
+        refresh(protocol);
     }
 
     function calcDistance(location, loc) {
+        /* location is location of recycle drop-off point
+         * loc is location of address which the user has entered */
         var R = 6371; // km earth diameter
         var pi = Math.PI;
         var lat2 = location.GEO_LAT;
@@ -1151,7 +1182,7 @@
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         var d = R * c;
         var dRound = (Math.round(d * 10)) / 10;
-        if (dRound != parseFloat(dRound)) {
+        if (dRound !== parseFloat(dRound)) {
             return null;
         } else {
             return (Math.round(d * 10)) / 10;
@@ -1213,7 +1244,7 @@
             $('#description1, #description2').css('display', 'block');
             $('#button_set_0').css('display', 'none');
             $('#button_set_1').css('display', 'block');
-            $('#slider_bar b').text('Max distance added to your journey');
+            $('#slider_bar, .slidecontainer').css('display', 'none');
         } else {
             $('.near').addClass('selected');
             $('#search-bar-0').css('display', 'grid');
@@ -1222,9 +1253,17 @@
             $('#description1, #description2').css('display', 'none');
             $('#button_set_0').css('display', 'block');
             $('#button_set_1').css('display', 'none');
-            $('#slider_bar b').text('Filter by Distance');
+            $('#slider_bar, .slidecontainer').css('display', 'block');
         }
     }
+
+    $('.bottom-search-button, #search-button').click(function() {
+        $('.menu').slideUp();
+        $('.slidecontainer').slideUp();
+        $('#expand_more').text("show");
+        $('#expand_more_distance').text("show");
+    });
+
 </script>
 <script>
     /* Range slider javascript*/
@@ -1244,7 +1283,7 @@
 
                 onSlideEnd: function(position, value) {
                     console.log(position, value);
-                    refresh();
+                    refresh(0);
                 }
             })
             .on('input', function() {
