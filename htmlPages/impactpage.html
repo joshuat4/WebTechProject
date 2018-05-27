@@ -45,6 +45,9 @@
         padding-left:20%;
 
     }
+    .text{
+        padding-top: 50px;
+    }
 
     /*card css below*/
     .card {
@@ -60,19 +63,19 @@
         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
     }
     .card .wrapper:hover .data {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
+        -webkit-transform: translateY(-100px) !important;
+        transform: translateY(-100px) !important;
     }
     .card .data {
         position: absolute;
-        bottom: 0;
+        bottom: -70px;
         width: 100%;
         -webkit-transform: translateY(calc(70px + 1em));
         transform: translateY(calc(70px + 1em));
         -webkit-transition: -webkit-transform 0.3s;
         transition: -webkit-transform 0.3s;
-        transition: transform 0.3s;
-        transition: transform 0.3s, -webkit-transform 0.3s;
+        transition: transform 0.5s;
+        transition: transform 0.5s, -webkit-transform 0.5s;
     }
     .card .data .content {
         padding: 1em;
@@ -88,7 +91,7 @@
     }
     .card .text {
         height: 70px;
-        font-size: 2.2vw;
+        font-size: 1.5vw;
         margin: 0;
     }
     .card input[type='checkbox'] {
@@ -98,8 +101,15 @@
         -webkit-transform: translateY(-60px);
         transform: translateY(-60px);
     }
+    body{
+        min-height: 450px !important;
+        min-width: 200px !important;
+
+    }
 
     .example-2{
+        min-height: 450px;
+        min-width: 200px;
         padding-left: 1vw;
     }
     .example-2 .wrapper {
