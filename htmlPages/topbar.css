@@ -27,13 +27,14 @@ ul.topnav li.right {float: right;}
 
 ul.topnav button {
     display: none;
-    float: right;
+    float: left;
     background:none;
     border:none;
     margin: 12px 10px 13px 0;
+    cursor: pointer;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 800px){
     ul.topnav li.right,
     ul.topnav li {float: none;}
     ul.topnav li {display: none}
