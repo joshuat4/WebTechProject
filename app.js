@@ -14,20 +14,19 @@ const PORT = process.env.PORT || 3000;
 const path = require('path');
 
 // move all those *.html files to ./static/
-app.use(express.static('static'));
-
-app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
-app.get('/frontpage.html', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
-app.post('/frontpage.html', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
-app.get('/collectionpartner.html', (req, res) => res.sendFile(path.join(__dirname + '/collectionpartner.html')));
-app.get('/maps.html', (req, res) => res.sendFile(path.join(__dirname + '/maps.html')));
-app.get('/RequestForm.html', (req, res) => res.sendFile(path.join(__dirname + '/RequestForm.html')));
-app.get('/impactpage.html', (req, res) => res.sendFile(path.join(__dirname + '/impactpage.html')));
-app.get('/partnerjoinform.html', (req, res) => res.sendFile(path.join(__dirname + '/partnerjoinform.html')));
-app.get('/howtohelp.html', (req, res) => res.sendFile(path.join(__dirname + '/howtohelp.html')));
-app.get('/sowhat.html', (req, res) => res.sendFile(path.join(__dirname + '/sowhat.html')));
-app.get('/whatEwaste.html', (req, res) => res.sendFile(path.join(__dirname + '/whatEwaste.html')));
-app.get('/Controller/deliveryTracker.html', (req, res) => res.sendFile(path.join(__dirname + '/Controller/deliveryTracker.html')));
+app.use(express.static('htmlPages'));
+// app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
+// app.get('/frontpage.html', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
+// app.post('/frontpage.html', (req, res) => res.sendFile(path.join(__dirname + '/frontpage.html')));
+// app.get('/collectionpartner.html', (req, res) => res.sendFile(path.join(__dirname + '/collectionpartner.html')));
+// app.get('/maps.html', (req, res) => res.sendFile(path.join(__dirname + '/maps.html')));
+// app.get('/RequestForm.html', (req, res) => res.sendFile(path.join(__dirname + '/RequestForm.html')));
+// app.get('/impactpage.html', (req, res) => res.sendFile(path.join(__dirname + '/impactpage.html')));
+// app.get('/partnerjoinform.html', (req, res) => res.sendFile(path.join(__dirname + '/partnerjoinform.html')));
+// app.get('/howtohelp.html', (req, res) => res.sendFile(path.join(__dirname + '/howtohelp.html')));
+// app.get('/sowhat.html', (req, res) => res.sendFile(path.join(__dirname + '/sowhat.html')));
+// app.get('/whatEwaste.html', (req, res) => res.sendFile(path.join(__dirname + '/whatEwaste.html')));
+// app.get('/Controller/deliveryTracker.html', (req, res) => res.sendFile(path.join(__dirname + '/Controller/deliveryTracker.html')));
 
 
 // Database setup
@@ -72,7 +71,7 @@ app.post('/partnerpost', function(req, res){
     currPartner.save(function (err) {
         if (err) return handleError(err);
     });
-    res.status(200).sendFile(path.join(__dirname + '/frontpage.html'));
+    // res.status(200).sendFile(path.join(__dirname + '/frontpage.html'));
 });
 
 

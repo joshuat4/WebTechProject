@@ -195,11 +195,11 @@
 </head>
 <ul class="topnav">
     <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
-    <li><a class="active" href="frontpage.html">ReeTech</a></li>
+    <li><a class="active" href="index.html">ReeTech</a></li>
     <li><a href="maps.html">Where to Recycle</a></li>
     <li><a href="impactpage.html">Why Recycle</a></li>
     <li><a href="RequestForm.html">Pickup Service</a></li>
-    <li><a href="Controller/deliveryTracker.html">Pickup Progress Tracker</a></li>
+    <li><a href="deliveryTracker.html">Pickup Progress Tracker</a></li>
     <li><a href="collectionpartner.html">Collection Partners</a></li>
 </ul>
 <body>
@@ -272,6 +272,7 @@
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
+        window.location = "/index.html";
     }
 
     // When the user clicks anywhere outside of the modal, close it

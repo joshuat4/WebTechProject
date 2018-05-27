@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<style>
+
+    ul.topnav {
+        position: absolute;
+        z-index: 2;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #FFF;
+        font-family: 'Source Sans Pro';
+        width:100%;
+    }
+
+    ul.topnav li {float: left;}
+
+    ul.topnav li a {
+        display: block;
+        color: Black;
+        text-align: center;
+        padding: 20px;
+        text-decoration: none;
+        transition: 1s;
+    }
+
+    ul.topnav li a:hover {background-color: #333; color: #FFF}
+
+
+    ul.topnav li.right {float: right;}
+
+    button {
+        display: none;
+        background:none;
+        border:none;
+    }
+
+    @media screen and (max-width: 600px){
+        button {
+            display: block;
+            float: right;
+            margin: 12px 10px 13px 0;
+        }
+        ul.topnav li.right,
+        ul.topnav li {float: none; text-align:center;}
+        ul.topnav li:nth-child(n+2) {display:none;}
+
+    }
+
+    .mobile-show {
+        display: block;
+    }
+
+    .item0 { grid-area: main; z-index: 2;}
+    .item1 { grid-area: item1; z-index: 2;}
+    .item2 { grid-area: item2; z-index: 2;}
+    .item3 { grid-area: item3; z-index: 2;}
+
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+                'main main main'
+                'item1 item2 item3';
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 2fr 1fr;
+        /*background-color: #FFFFFF;*/
+        height: 100vh;
+        background-image: url("https://image.ibb.co/dC6frn/Frontpage_BG.jpg");
+        background-size:cover;
+        background-position: center;
+        z-index: 0;
+    }
+
+    .cover {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(10, 10, 10, 0.7);
+        z-index: 1;
+    }
+
+    .grid-container div {
+        text-align: center;
+        font-size: 30px;
+        font-family: 'Source Sans Pro';
+    }
+
+    .grid-container .item0 {
+        /*background-color: rgba(10, 10, 10, 0.5);*/
+        /*background-image: url("http://panglaovacations.com/wp-content/uploads/2017/09/Hanging-Bridge-in-Sevilla.jpg");*/
+        /*background-size:cover;*/
+        /*background-blend-mode: color;*/
+        /*background-position: center;*/
+        color: #FFFFFF;
+        padding-top: 15vh;
+    }
+
+    .grid-container div:nth-child(n+3) {
+        -webkit-transition-duration: 1s; /* Safari */
+        transition-duration: 0.3s;
+        color: #FFFFFF;
+        overflow: hidden;
+        cursor: pointer;
+        padding: 10% 0 0 0;
+    }
+
+    .grid-container div:nth-child(n+3):hover {
+        -webkit-transform: scale(1.3);
+        /*box-shadow: 8px 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    }
+
+    @media screen and (max-width: 600px) {
+        .grid-container {
+            grid-template-columns: 1fr;
+            grid-template-rows: 2fr 1fr 1fr 1fr;
+            height: 100vh;
+            grid-template-areas:
+                    "main"
+                    "item1"
+                    "item2"
+                    "item3";
+        }
+        .grid-container div:nth-child(n+3){
+            font-size: smaller;
+            padding: 10px auto 10px auto;
+        }
+
+    }
+
+
+
+    body {
+        margin: 0;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>ReeTech</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<ul class="topnav">
+    <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
+    <li><a href="index.html">ReeTech</a></li>
+    <li><a class="mobile-hidden" id="check" href="maps.html">Where to Recycle</a></li>
+    <li><a class="mobile-hidden" href="impactpage.html">Why Recycle</a></li>
+    <li><a class="mobile-hidden" href="RequestForm.html">Pickup Service</a></li>
+    <li><a href="deliveryTracker.html">Pickup Progress Tracker</a></li>
+    <li><a class="mobile-hidden" href="collectionpartner.html">Collection Partners</a></li>
+</ul>
+
+<div class="grid-container">
+    <div class="cover"></div>
+    <div class="item0">
+        <div class="text-container"><h1>ReeTech</h1>Making recycling easier for everyone!</div>
+    </div>
+    <div class="item1" id="where">Where to Recycle<br><i class="material-icons" style="font-size: 10vh">room</i></div>
+    <div class="item2" id="why">Why Recycle E-waste<br><span style="font-size: 8vh; color: white">&#9851;</span></div>
+    <div class="item3" id="pickup">E-waste Pickup Service<br><i class="material-icons" style="font-size: 10vh">local_shipping</i></div>
+</div>
+
+
+</body>
+<script src="https://sirxemic.github.io/jquery.ripples/jquery.ripples.js"></script>
+<script>
+    document.getElementById("where").addEventListener("click", function(){
+        window.location.replace("maps.html");
+    });
+
+    document.getElementById("why").addEventListener("click", function(){
+        window.location.replace("impactpage.html");
+    });
+
+    document.getElementById("pickup").addEventListener("click", function(){
+        window.location.replace("RequestForm.html");
+    });
+
+    function menu() {
+        console.log()
+        if ($('ul.topnav li:nth-child(2)').css('display') == 'none'){
+            $('ul.topnav li:nth-child(n+2)').css("display", "block");
+        }
+        else {
+            console.log("running else");
+            $('ul.topnav li:nth-child(n+2)').css("display", "none");
+        }
+    }
+
+    $(document).ready(function() {
+        try {
+            $('.grid-container').ripples({
+                resolution: 512,
+                dropRadius: 10, //px
+                perturbance: 0.02,
+            });
+        }
+        catch (e) {
+            $('.error').show().text(e);
+        }
+
+    });
+</script>
+</html>

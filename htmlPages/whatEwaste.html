@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="topbar.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<style>
+
+    body {
+        margin: 0px;
+        background-image: url("http://www.villreal.com/img142/cbhnuowmlblnwomuwdim.jpg");
+        font-family: "Roboto", sans-serif;
+    }
+
+    /* The card */
+    .card {
+        position: relative;
+        height: 90vh;
+        width: 80vw;
+        margin-top: 10vh;
+        margin-left: 9vw;
+        margin-right: 7vw;
+        background-color: #FFF;
+        -webkit-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+        margin-bottom: 10vh;
+    }
+
+
+    /* Image on the left side */
+    .thumbnail {
+        margin-top: 19vh;
+        margin-right: 2vw;
+        background-size: cover;
+        float: left;
+        position: relative;
+        left: 30px;
+        top: -30px;
+        height: 60vh;
+        width: 40vw;
+        -webkit-box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.4);
+        box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    img{
+        z-index: 4;
+        -webkit-animation: slideshow 16s linear 0s infinite;
+        -moz-animation: slideshow 16s linear 0s infinite;
+        -ms-animation: slideshow 16s linear 0s infinite;
+        -o-animation: slideshow 16s linear 0s infinite;
+        animation: slideshow 16s linear 0s infinite;
+    }
+    img:nth-child(1){
+        z-index: 3;
+        -webkit-animation: slideshow 16s linear 4s infinite;
+        -moz-animation: slideshow 16s linear 4s infinite;
+        -ms-animation: slideshow 16s linear 4s infinite;
+        -o-animation: slideshow 16s linear 4s infinite;
+        animation: slideshow 16s linear 4s infinite;
+    }
+    img:nth-child(2){
+        z-index: 2;
+        -webkit-animation: slideshow 16s linear 8s infinite;
+        -moz-animation: slideshow 16s linear 8s infinite;
+        -ms-animation: slideshow 16s linear 8s infinite;
+        -o-animation: slideshow 16s linear 8s infinite;
+        animation: slideshow 16s linear 8s infinite;
+    }
+    img:nth-child(3){
+        z-index: 1;
+        -webkit-animation: slideshow 16s linear 12s infinite;
+        -moz-animation: slideshow 16s linear 12s infinite;
+        -ms-animation: slideshow 16s linear 12s infinite;
+        -o-animation: slideshow 16s linear 12s infinite;
+        animation: slideshow 16s linear 12s infinite;
+    }
+
+    @-webkit-keyframes slideshow {
+        25% { opacity: 1;}
+        33.33% { opacity: 0;}
+        91.66% { opacity: 0;}
+        100% { opacity: 1;}
+    }
+    @-moz-keyframes slideshow {
+        25% { opacity: 1;}
+        33.33% { opacity: 0;}
+        91.66% { opacity: 0;}
+        100% { opacity: 1;}
+    }
+    @-ms-keyframes slideshow {
+        25% { opacity: 1;}
+        33.33% { opacity: 0;}
+        91.66% { opacity: 0;}
+        100% { opacity: 1;}
+    }
+    @-o-keyframes slideshow {
+        25% { opacity: 1;}
+        33.33% { opacity: 0;}
+        91.66% { opacity: 0;}
+        100% { opacity: 1;}
+    }
+    @keyframes slideshow {
+        25% { opacity: 1;}
+        33.33% { opacity: 0;}
+        91.66% { opacity: 0;}
+        100% { opacity: 1;}
+    }
+    /*object-fit: cover; */
+    /*object-position: center; */
+    img.left {
+        object-fit: cover;
+        object-position: center;
+        background-size:cover;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 120%;
+        width: 100%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    /* Right side of the card */
+    .right {
+        margin-left: 45vw;
+        margin-right: 20px;
+    }
+
+    h2 {
+        padding-top: 15px;
+        font-size: 2rem;
+        color: #4B4B4B;
+        font-family: "Source Sans Pro";
+    }
+
+
+    .separator {
+        margin-top: 10px;
+        border: 1px solid #C3C3C3;
+    }
+
+    p {
+        text-align: justify;
+        padding-top: 10px;
+        font-size: 1.2vw;
+        line-height: 150%;
+        color: #4B4B4B;
+        font-family: "Source Sans Pro"
+    }
+
+    #banner {
+        width: 100vw;
+        height:25vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    a { color: #ffffff
+    } /* Globally */
+
+    /* Each state */
+
+    a:visited { text-decoration: none; color: #ffffff; }
+    a:hover { text-decoration: none; color: #ffffff; }
+    a:focus { text-decoration: none; color: #ffffff; }
+    a:hover, a:active { text-decoration: none; color: #aab3b4
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>What is E-waste?</title>
+</head>
+<ul class="topnav">
+    <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
+    <li><a class="active" href="index.html">ReeTech</a></li>
+    <li><a href="maps.html">Where to Recycle</a></li>
+    <li><a href="impactpage.html">Why Recycle</a></li>
+    <li><a href="RequestForm.html">Pickup Service</a></li>
+    <li><a href="deliveryTracker.html">Pickup Progress Tracker</a></li>
+    <li><a href="collectionpartner.html">Collection Partners</a></li>
+</ul>
+<body>
+<section id="banner"  style="padding: 80px 0px;
+background-image: url('https://www.walldevil.com/wallpapers/w07/futuristic-dystopia-apocalyptic.jpg'); background-position: 100% -200px;">
+</section>
+<div class="card">
+    <div class="thumbnail">
+        <img class="left" src="http://pascualsalazar.com/wp-content/uploads/2018/03/ewaste.jpg"/>
+        <img class="left" src="https://media.wired.com/photos/5932304958b0d64bb35d0243/master/w_3000,c_limit/device-recycling.jpg"/>
+        <img class="left" src="https://thumbs.dreamstime.com/b/batteries-9244445.jpg"/>
+        <img class="left" src="https://tunza.eco-generation.org/file/e-waste-3.jpg"/>
+    </div>
+    <div class="right">
+        <h2>What is E-waste?</h2>
+        <div class="separator"></div>
+        <p>E-waste is a popular, informal name for electronic products nearing the end of their "useful life." Computers,
+            televisions, VCRs, stereos, copiers, and fax machines are common electronic products. Many of these products
+            can be reused, refurbished, or recycled.</p>
+
+        <p>The number of e-waste in Australia is predicted to be approximately 700 million items in 2020 if there is no
+            e-waste recycling program. Australia is a country that is left behind when it comes to e-waste legislation. According
+            to the current law, it is the responsibility of consumers to recycle e-waste since the government has no funding
+            to finance the recycling. It led consumers to leave the e-waste not recycled and throw it out on landfills.</p>
+    </div>
+<script src="topbar.js"></script>
+</body>
+</html>
