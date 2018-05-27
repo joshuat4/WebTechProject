@@ -125,6 +125,13 @@
     .close {
         position: absolute;
         margin: 0 10px 0 355px;
+        display: none;
+    }
+
+    @media screen and (max-width: 800px){
+        .close{
+            display: block;
+        }
     }
 
     .close button {
@@ -595,7 +602,7 @@
                 <div class="expand" id="expand_more_distance">hide</div>
             </div>
             <div class="slidecontainer">
-                <input type="range" min="1" max="30" value="8">
+                <input type="range" min="1" max="30" value="2">
                 <div class="rangeslider__ruler">1km 30km</div>
                 <div class="rangeslider__current_value"></div>
             </div>
@@ -1293,8 +1300,10 @@
         //console.log($(window).width());
         if ($(window).width()>800){
             $('ul.topnav li:nth-child(n+2)').css("display", "block");
+            $('.close').css('display', 'none');
         }else{
             $('ul.topnav li:nth-child(n+2)').css("display", "none");
+            $('.close').css('display', 'block');
         }
     });
 
