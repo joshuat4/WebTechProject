@@ -8,3 +8,12 @@ function menu() {
         $('ul.topnav li:nth-child(n+2)').css("display", "none");
     }
 }
+
+$(window).resize(function(){
+    //console.log($(window).width());
+    if ($(window).width()>800){
+        $('ul.topnav li:nth-child(n+2)').css("display", "block");
+    }else{
+        $('ul.topnav li:nth-child(n+2)').css("display", "none");
+    }
+});

@@ -35,13 +35,14 @@
 
     ul.topnav button {
         display: none;
-        float: right;
+        float: left;
         background:none;
         border:none;
         margin: 5px 10px 0 0;
+        cursor: pointer;
     }
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 800px){
         ul.topnav li.right,
         ul.topnav li {float: none;}
         ul.topnav li {display: none}
@@ -112,8 +113,6 @@
         font-weight: bold;
     }
 
-
-
     .search_type {
         display: grid;
         grid-template-areas:
@@ -121,6 +120,20 @@
         grid-template-columns: 1fr 1fr;
         text-align: center;
 
+    }
+
+    .close {
+        position: absolute;
+        margin: 0 10px 0 355px;
+    }
+
+    .close button {
+        background:none;
+        border:none;
+    }
+
+    .close button:hover {
+        cursor: pointer;
     }
 
     #search-bar-1, #search-bar-2, #description1, #description2, #button_set_1 {
@@ -514,6 +527,7 @@
     <div class="header">
         <ul class="topnav">
             <button onclick="menu()"><i class="material-icons menu-icon" style="font-size:36px">menu</i></button>
+            <button onclick="hide_show_sidebar(1)"><i class="material-icons menu-icon" style="font-size:36px; float:right">search</i></button>
             <li><a class="active" href="frontpage.html">ReeTech</a></li>
             <li><a href="maps.html">Where to Recycle</a></li>
             <li><a href="impactpage.html">Why Recycle</a></li>
@@ -530,6 +544,7 @@
                 <div class="near selected" onclick="change_search_type(1)">Recycle Near Me</div>
                 <div class="on_the_way" onclick="change_search_type(0)">Recycle Along My Way</div>
             </div>
+            <div class="close"><button onclick="hide_show_sidebar(0)"><i class="material-icons menu-icon" style="font-size:36px">close</i></button></div>
             <div class="shift-left" id="description0">
                 <br>
                 My address
@@ -1226,12 +1241,12 @@
 <script>
     function menu() {
         console.log()
-        if ($('ul.topnav li:nth-child(2)').css('display') == 'none'){
-            $('ul.topnav li:nth-child(n+2)').css("display", "block");
+        if ($('ul.topnav li:nth-child(3)').css('display') == 'none'){
+            $('ul.topnav li:nth-child(n+3)').css("display", "block");
         }
         else {
             console.log("running else");
-            $('ul.topnav li:nth-child(n+2)').css("display", "none");
+            $('ul.topnav li:nth-child(n+3)').css("display", "none");
         }
     }
 
@@ -1262,6 +1277,25 @@
         $('.slidecontainer').slideUp();
         $('#expand_more').text("show");
         $('#expand_more_distance').text("show");
+    });
+
+    function hide_show_sidebar(action){
+        if (action===0){
+            $('.navigator').css('display', 'none');
+            $('.map').css('grid-column', '1/3');
+        }else{
+            $('.navigator').css('display', 'flex');
+            $('.map').css('grid-column', '2');
+        }
+    }
+
+    $(window).resize(function(){
+        //console.log($(window).width());
+        if ($(window).width()>800){
+            $('ul.topnav li:nth-child(n+2)').css("display", "block");
+        }else{
+            $('ul.topnav li:nth-child(n+2)').css("display", "none");
+        }
     });
 
 </script>
