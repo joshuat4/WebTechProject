@@ -585,11 +585,11 @@
                 <div class="rangeslider__current_value"></div>
             </div>
             <div class="revise-search-button-container" id="button_set_0">
-                <button class="revise-search-button" onclick="reset()">Clear Filters</button>
+                <button class="revise-search-button" onclick="reset(0)">Clear Filters</button>
                 <button class="bottom-search-button" onclick="refresh(0)">Search</button>
             </div>
             <div class="revise-search-button-container" id="button_set_1">
-                <button class="revise-search-button" onclick="reset()">Clear Filters</button>
+                <button class="revise-search-button" onclick="reset(1)">Clear Filters</button>
                 <button class="bottom-search-button" onclick="refresh(1)">Search</button>
             </div>
             <br>
@@ -616,16 +616,26 @@
         var count = 0;
         var button = 'Directions';
         var mystr = '<div class="shift-left"><b>Recycling spots near me:</b></div><br>';
+        var origin_dest_distance=0;
         if (protocol!==0){
             button='Show Route';
             mystr = '<div class="shift-left"><b>Best Dropoffs on the way:</b></div><br>';
+            origin_dest_distance = calcDistance({
+                GEO_LON: originArray[0].position.lng(),
+                GEO_LAT: originArray[0].position.lat()
+            }, originArray[1].position)-0.5;
         }
 
         for (var i = 0; i < data.length; i++) {
             if (satisfy(data[i], filter_list)) {
                 mystr += '<div class="result" value='+i.toString()+'><div class="result-name"><b>' + data[i]["BUSINESSNAME"] + '</b></div>';
                 mystr += '<div class="result-address">' + data[i]["ADDRESS"] + ', ' + data[i]["SUBURB"] + '</div>';
-                mystr += '<div class="result-distance">' + data[i].distance.toFixed(2) + 'km' + '</div>';
+                mystr += '<div class="result-distance">';
+                if(protocol!==0){
+                    mystr+='+';
+                }
+                mystr += (data[i].distance-origin_dest_distance).toFixed(2);
+                mystr += 'km' + '</div>';
                 mystr += '<div class="result-directions"><button class="directions-button">'+button+'</button></div><div class="read-more" id="'+ i.toString() +'">read more</div></div>';
                 count += 1;
                 if (protocol!==0&&count>=10){
@@ -796,7 +806,7 @@
                         map: map,
                         position: results[0].geometry.location
                     });
-                    map.setZoom(12);
+                    //map.setZoom(15);
 
                     originArray.push(marker);
                     var str = $('.rangeslider__current_value').text().toString();
@@ -890,6 +900,16 @@
             data.sort(function(a, b){
                 return a.distance-b.distance;
             });
+
+            if (addresses===0){
+                var bounds  = new google.maps.LatLngBounds();
+                for (var k = 0; k < data.length; k++){
+                    bounds.extend(new google.maps.LatLng(data[k].GEO_LAT, data[k].GEO_LON));
+                }
+                map.fitBounds(bounds);
+                map.panToBounds(bounds);
+            }
+
             document.getElementById("results").innerHTML = genstr(data, filter_list, addresses);
             plotter(data, filter_list, addresses);
 
@@ -1137,10 +1157,11 @@
     }
 
     //when you press reset filters
-    function reset() {
-        initMap();
-        refresh();
+    function reset(protocol) {
+        // initMap();
+
         $('li input').prop('checked', false);
+        refresh(protocol);
     }
 
     function calcDistance(location, loc) {
@@ -1233,6 +1254,14 @@
             $('#slider_bar, .slidecontainer').css('display', 'block');
         }
     }
+
+    $('.bottom-search-button').click(function() {
+        $('.menu').slideUp();
+        $('.slidecontainer').slideUp();
+        $('#expand_more').text("show");
+        $('#expand_more_distance').text("show");
+    });
+
 </script>
 <script>
     /* Range slider javascript*/
