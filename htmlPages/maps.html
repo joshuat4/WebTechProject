@@ -914,7 +914,7 @@
             plotter(data, filter_list, addresses);
 
             document.getElementById('waste-menu').onclick = function (event) {
-                if (event.target.type != 'checkbox') return;
+                if (event.target.type !== 'checkbox') return;
                 var changed_filter = get_checked();
                 document.getElementById("results").innerHTML = genstr(data, changed_filter, addresses);
                 deleteOverlays();
@@ -923,7 +923,7 @@
 
             //route display triggers (event delegation)
             document.getElementById('results').onclick = function (event) {
-                if (event.target.className != 'directions-button') return;
+                if (event.target.className !== 'directions-button') return;
 
                 let pane = event.target.closest('.result');
                 // console.log(pane.childNodes[1].textContent);
@@ -1165,6 +1165,8 @@
     }
 
     function calcDistance(location, loc) {
+        /* location is location of recycle drop-off point
+         * loc is location of address which the user has entered */
         var R = 6371; // km earth diameter
         var pi = Math.PI;
         var lat2 = location.GEO_LAT;
@@ -1180,7 +1182,7 @@
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         var d = R * c;
         var dRound = (Math.round(d * 10)) / 10;
-        if (dRound != parseFloat(dRound)) {
+        if (dRound !== parseFloat(dRound)) {
             return null;
         } else {
             return (Math.round(d * 10)) / 10;
@@ -1255,7 +1257,7 @@
         }
     }
 
-    $('.bottom-search-button').click(function() {
+    $('.bottom-search-button, #search-button').click(function() {
         $('.menu').slideUp();
         $('.slidecontainer').slideUp();
         $('#expand_more').text("show");
